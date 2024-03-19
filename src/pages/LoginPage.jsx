@@ -6,9 +6,12 @@ import CircleDesign from '../components/CircleDesign'
 const LoginPage = () => {
     return (
         <div className='static'>
-            <HeaderStyle h={14} ></HeaderStyle>
+            <HeaderStyle h={"h-12"}></HeaderStyle>
             <img width={300} src="images/logo.png" className='m-auto mt-11 mb-11' alt="" />
-            <FormLogin />
+            <div className='bg-tailwind-cream rounded-lg h-80 shadow-md flex justify-center items-center container m-auto max-w-[1020px] '>
+
+                <FormLogin />
+            </div>
             <CircleDesign />
 
         </div>

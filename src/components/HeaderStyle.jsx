@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function HeaderStyle({ h, children }) {
+
+
+function HeaderStyle({ h, children,...props }) {
+
   return (
-    <div className={`bg-tailwind-green h-${h}`}>
-      {children}
+    <div className={`bg-tailwind-green ${h}`} {...props}>
+      {children }
     </div>
   )
 }
