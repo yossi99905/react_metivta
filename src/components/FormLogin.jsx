@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hook/useAuth';
@@ -25,13 +24,8 @@ function FormLogin() {
   const apiLogin = async (data) => {
     const url = 'http://localhost:3003/users/login';
     const resp = await axios.post(url, data);
-    console.log(resp.data)
-
-
+    
     setAuth(resp.data);
-    console.log(resp.data, "resp.data")
-
-
     setCookies(resp.data.token, true);
 
     navigate(from, "/student")
@@ -51,7 +45,7 @@ function FormLogin() {
         <input {...register("email", { required: true, minLength: 2 })} type="text" placeholder="הזן שם משתמש" className='rounded-2xl p-2 text-right w-full' />
         <input {...register("password", { required: true, minLength: 2 })} type="text" placeholder="הזן סיסמה" className='rounded-2xl p-2 text-right w-full' />
 
-        <button className=' rounded-2xl p-2 bg-tailwind-green text-white '>התחבר</button>
+        <button type='submit' className=' rounded-2xl p-2 bg-tailwind-green text-white '>התחבר</button>
 
       </form>
     </div>

@@ -32,7 +32,7 @@ function App() {
               <Route path="/student" element={<StudentPage />} />
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={["2000"]} />}>
+            <Route element={<RequireAuth allowedRoles={["2000","3000"]} />}>
               <Route path="/teacher" element={<TeacherPage />} />
             </Route>
 

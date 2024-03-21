@@ -11,6 +11,8 @@ export default {
         "tailwind-blue": "#2D9CDB",
         "tailwind-green": "#B0CF57",
         "tailwind-cream": "#FDF7E6",
+        "tailwind-green-bright": "#cde1a1",
+        "tailwind-succes": "#66b223",
       }
     },
   },

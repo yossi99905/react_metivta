@@ -10,7 +10,7 @@ import HeaderForPage from '../components/HeaderForPage'
 function StudentPage() {
     const { auth, setAuth } = useAuth();
     const navigate = useNavigate();
-    const { num, start } = useNum({ autoplay: true, score: 85 })
+    const { num, start } = useNum({ autoplay: true, score: auth.score })
 
     useEffect(() => {
         start()
