@@ -2,9 +2,16 @@ import { useEffect, useState } from "react"
 import Category from "./Category"
 import axios from "../../api/urls"
 
-function ListCayegory() {
+function ListCayegory({onData}) {
   const [categories, setcategories] = useState([])
-  const [categorySelection, setCategorySelection] = useState();
+  const [categorySelection, setCategorySelection] = useState(0);
+  const [categoryMarker, setcategoryMarker] = useState();
+
+  useEffect(() => {
+        
+    const data =  categorySelection
+    onData(data);
+}, [categorySelection]);
 
 
   useEffect(() => {
@@ -42,7 +49,7 @@ function ListCayegory() {
       {
         categories.length ?
           categories.map((category, index) => (
-            <Category key={index} name={category.name} selected={categorySelection == index} selectBtn={()=>{setCategorySelection(index)}} />
+            <Category key={index} name={category.name} selected={categoryMarker == index} selectBtn={()=>{setCategorySelection(category.score);setcategoryMarker(index)}} />
           ))
           : <li>אין קטגוריות</li>
       }

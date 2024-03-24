@@ -4,16 +4,24 @@ import StudentCard from './StudentCard'
 
 
 
-function ListUsers() {
+function ListUsers({onData}) {
     const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
-    
 
+    //send selected users to parent component
+    useEffect(() => {
+        
+        const data =  selectedUsers
+        onData(data);
+    }, [selectedUsers]);
+   
+    
+    //handle checkbox change
     const handleCheckboxChange = (user) => (event) => {
         if (event.target.checked) {
-            setSelectedUsers(prevSelectedUsers => [...prevSelectedUsers, users[user].name]);
+            setSelectedUsers(prevSelectedUsers => [...prevSelectedUsers, users[user].email]);
         } else {
-            setSelectedUsers(prevSelectedUsers => prevSelectedUsers.filter(selectedUser => selectedUser !== users[user].name));
+            setSelectedUsers(prevSelectedUsers => prevSelectedUsers.filter(selectedUser => selectedUser !== users[user].email));
         }
     };
     const clicked = () =>{
@@ -28,7 +36,7 @@ function ListUsers() {
         const getUsers = async () => {
             try {
                 const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1]; 
-                const resp = await axios.get('/users', {
+                const resp = await axios.get('teachers?classNum=2', {
                     headers: {
                         'x-api-key': token
                     },

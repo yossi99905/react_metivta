@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
-import FormNewUser from '../components/FormNewUser'
+import FormNewUser from '../components/admin/FormNewUser'
 import SuccesMessage from '../components/SuccesMessage'
+import DashboardAdmin from '../components/admin/DashboardAdmin'
 
 function AdminPage() {
-  const [bollSucces, setbollSucces] = useState(false)
+  
   return (
-    <div className='pt-24 h-lvh'>
-      <SuccesMessage name={"השם נשמר בהצלחה"} onClickBtn={()=>setbollSucces(!bollSucces)} show={bollSucces}/>
-      <FormNewUser onClickSubmit={()=>setbollSucces(!bollSucces)}/>
+    <div>
+
+      {/* <div className='pt-24 h-lvh'>
+        <SuccesMessage name={"השם נשמר בהצלחה"} onClickBtn={() => setbollSucces(!bollSucces)} show={bollSucces} />
+        <FormNewUser onClickSubmit={() => setbollSucces(!bollSucces)} />
+      </div> */}
+      <DashboardAdmin/>
     </div>
   )
 }

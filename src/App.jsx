@@ -11,6 +11,11 @@ import Home from './pages/Home';
 import MissingPage from './pages/MissingPage';
 import RequireAuth from './auth/RequireAuth';
 import refrshLoginAuth  from './auth/refrshLoginAuth'
+import NewUserPage from './components/admin/NewUserPage';
+import DashboardAdmin from './components/admin/DashboardAdmin';
+import ListUsersPage from './components/admin/ListUsersPage';
+import NewCategoryPage from './components/admin/NewCategoryPage';
+import ListCategoriesPage from './components/admin/ListCategoriesPage';
 
 
 function App() {
@@ -38,6 +43,11 @@ function App() {
 
             <Route element={<RequireAuth allowedRoles={["3000"]} />}>
               <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+              <Route path="/admin/newUser" element={<NewUserPage />} />
+              <Route path="/admin/listUsers" element={<ListUsersPage/>} />
+              <Route path="/admin/newCategory" element={<NewCategoryPage/>} />
+              <Route path="/admin/listCategories" element={<ListCategoriesPage/>} />
             </Route>
       
 
