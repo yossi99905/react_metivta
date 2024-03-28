@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import HeaderStyle from '../components/HeaderStyle'
-import CircleDesign from '../components/CircleDesign'
+
 import useNum from '../hook/useNum'
 import signOut from '../auth/signOut'
 import useAuth from '../hook/useAuth'
@@ -32,7 +32,7 @@ function StudentPage() {
                     <button className=' p-2 text-tailwind-green m-auto text-[40px]'>פעולות אחרונות</button>
                 </div>
             </div>
-            <CircleDesign />
+           
         </div>
     )
 }

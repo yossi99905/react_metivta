@@ -9,7 +9,8 @@ function Home() {
        <ul className='d-flex space-x-3 text-green-950'>
         <NavLink to={'/student'}>student  |</NavLink>
         <NavLink to={'/teacher'}>teacher  |</NavLink>
-        <NavLink to={'/admin'}>admin</NavLink>
+        <NavLink to={'/admin'}>admin |</NavLink>
+        <NavLink to={'/store'}>store</NavLink>
     </ul>
     </HeaderForPage>
    

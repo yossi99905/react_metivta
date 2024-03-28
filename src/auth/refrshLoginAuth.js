@@ -5,7 +5,7 @@ import useAuth from '../hook/useAuth';
 
 function useRefresh() {
     const navigate = useNavigate();
-    const { setAuth } = useAuth();
+    const { setAuth,auth } = useAuth();
     const setCookies = (token, isConnect) => {
         // Set the token as a cookie
         document.cookie = `token=${token}; path=/; expires=${new Date(Date.now() + 3600000).toUTCString()}`;
@@ -28,7 +28,7 @@ function useRefresh() {
                 setAuth(resp.data);
                 console.log(resp.data, "resp.data");
                 setCookies(resp.data.token, true);
-                navigate("/");
+                navigate(auth.loction || '/');
                 return;
             }
         } catch (err) {

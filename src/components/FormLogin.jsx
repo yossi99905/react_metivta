@@ -24,7 +24,6 @@ function FormLogin() {
   const apiLogin = async (data) => {
     const url = 'http://localhost:3003/users/login';
     const resp = await axios.post(url, data);
-    
     setAuth(resp.data);
     setCookies(resp.data.token, true);
 
@@ -39,7 +38,7 @@ function FormLogin() {
   }
 
   return (
-    <div className=' w-full mx-[170px]'>
+    <div className=' w-full px-[90px]'>
 
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col  space-y-4 w-full '>
         <input {...register("email", { required: true, minLength: 2 })} type="text" placeholder="הזן שם משתמש" className='rounded-2xl p-2 text-right w-full' />

@@ -1,20 +1,28 @@
 import React from 'react'
 import NavAdmin from './NavAdmin'
+import CircleDesign from '../CircleDesign'
+import HeaderAdmin from './HeaderAdmin'
 
 function DashboardAdmin() {
     return (
-        <div className='grid grid-cols-4 h-lvh'>
-            <div className="col-span-3 grid grid-cols-2 gap-4 my-32">
-                <div className="border p-4">תוכן 1</div>
-                <div className="border p-4">תוכן 2</div>
-                <div className="border p-4">תוכן 3</div>
-                <div className="border p-4">תוכן 4</div>
+
+        <div className='flex h-lvh justify-end'>
+            <div className='w-lvw '>
+
+                <HeaderAdmin />
+                <div className="mx-9 grid grid-cols-2 gap-4 my-32 h-[500px]">
+                    <div className="border p-4">תוכן 1</div>
+                    <div className="border p-4">תוכן 2</div>
+                    <div className="border p-4">תוכן 3</div>
+                    <div className="border p-4">תוכן 4</div>
+                </div>
+
+
             </div>
 
-            <div className='col-span-1'>
+            <NavAdmin />
 
-                <NavAdmin />
-            </div>
+
 
         </div>
     )

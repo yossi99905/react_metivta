@@ -1,21 +1,22 @@
 import React from 'react'
 import NavAdmin from './NavAdmin'
+import FormNewCategory from './FormNewCategory'
 function NewCategoryPage() {
   return (
-    <div>
-        <div className='grid grid-cols-4 h-lvh'>
-            <div className="col-span-3 grid grid-cols-2 gap-4 my-32">
-                NewCategoryPage
-              
-            </div>
 
-            <div className='col-span-1'>
+    <div className='flex h-lvh justify-end'>
+      <div className="w-lvw mx-9 my-32">
+        <FormNewCategory />
 
-                <NavAdmin />
-            </div>
+      </div>
 
-        </div>
+
+
+      <NavAdmin />
+
+
     </div>
+
   )
 }
 

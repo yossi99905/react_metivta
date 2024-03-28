@@ -6,8 +6,8 @@ import FormNewUser from './FormNewUser'
 function NewUserPage() {
     const [bollSucces, setbollSucces] = useState(false)
     return (
-        <div className='grid grid-cols-4 h-lvh'>
-            <div className="col-span-3 gap-4 my-32 w-full">
+        <div className='flex h-lvh justify-end'>
+            <div className="col-span-3 gap-4 my-32 w-lvw mx-9">
                 <div className='w-full h-full'>
                     <SuccesMessage name={"השם נשמר בהצלחה"} onClickBtn={() => setbollSucces(!bollSucces)} show={bollSucces} />
                     <FormNewUser onClickSubmit={() => setbollSucces(!bollSucces)} />
@@ -15,10 +15,10 @@ function NewUserPage() {
 
             </div>
 
-            <div className='col-span-1'>
 
-                <NavAdmin />
-            </div>
+
+            <NavAdmin />
+
 
         </div>
     )
