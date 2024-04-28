@@ -1,6 +1,5 @@
-import React from 'react'
 import { useForm } from 'react-hook-form';
-import axios from '../../api/urls';
+
 
 function EditCategory({ showEditForm = false, onClickCloseBtn, name, _id, score, onClickEditAction}) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();

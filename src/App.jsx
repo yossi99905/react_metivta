@@ -18,6 +18,9 @@ import NewCategoryPage from './components/admin/NewCategoryPage';
 import ListCategoriesPage from './components/admin/ListCategoriesPage';
 import CircleDesign from './components/CircleDesign';
 import StorePage from './pages/StorePage';
+import StoreManagementPage from './components/store/StoreManagementPage';
+import NewItemPage from './components/store/NewItemPage';
+import ListItemsPage from './components/store/ListItemsPage';
 // import beforeunload from './auth/beforeunload';
 
 
@@ -47,9 +50,12 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={["3000"]} />}>
             <Route path="/store" element={<StorePage />} />
+            <Route path="/store/storeanagement" element={<StoreManagementPage/>} />
+            <Route path="/store/newItem" element={<NewItemPage/>} />
+            <Route path="/store/ListItems" element={<ListItemsPage/>} />
           </Route>
 
-          <Route element={<RequireAuth allowedRoles={["3000"]} />}>
+          <Route element={<RequireAuth allowedRoles={["4000"]} />}>
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/dashboard" element={<DashboardAdmin />} />
             <Route path="/admin/newUser" element={<NewUserPage />} />
@@ -57,6 +63,7 @@ function App() {
             <Route path="/admin/newCategory" element={<NewCategoryPage />} />
             <Route path="/admin/listCategories" element={<ListCategoriesPage />} />
           </Route>
+          
 
 
 

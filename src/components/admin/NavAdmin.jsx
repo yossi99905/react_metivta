@@ -1,6 +1,6 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGauge, faUser, faUsers, faFileCirclePlus, faFolderClosed } from '@fortawesome/free-solid-svg-icons'
+import { faGauge, faUser, faUsers,faUserPlus ,  faFileCirclePlus, faFolderClosed } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import CircleDesign from '../CircleDesign'
@@ -8,10 +8,10 @@ import CircleDesign from '../CircleDesign'
 
 function NavAdmin() {
   return (
-    <div className='min-w-[70px] md:min-w-[250px] bg-tailwind-green'>
-      <ul className='text-end my-40 text-white' >
+    <div className='min-w-[70px] md:min-w-[250px] bg-tailwind-green nuvLink'>
+      <ul className='text-end my-40 text-white text-opacity-70' >
         <div className='hidden md:block '>
-          <NavLink to={'/admin/dashboard'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>לוח מכוונים</li></NavLink>
+          <NavLink to={'/admin/dashboard'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center '>לוח מכוונים</li></NavLink>
           <NavLink to={'/admin/newUser'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>יצירת משתמש חדש</li></NavLink>
           <NavLink to={'/admin/listUsers'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>רשימת משתמשים</li></NavLink>
           <NavLink to={'/admin/newCategory'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>יצירת קטגוריה חדשה</li></NavLink>
@@ -26,7 +26,7 @@ function NavAdmin() {
           </div>
           <div>
             <NavLink to={'/admin/newUser'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faUserPlus} />
             </li></NavLink>
           </div>
           <div>
@@ -52,7 +52,7 @@ function NavAdmin() {
 
       </ul>
 
-      <CircleDesign />
+      {/* <CircleDesign /> */}
 
     </div>
   )

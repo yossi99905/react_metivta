@@ -10,3 +10,7 @@ body {
     font-style: normal;
 }
 
+.nuvLink .active {
+    font-size: larger !important;
+    color: rgb(255, 255, 255) !important;
+}

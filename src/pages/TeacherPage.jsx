@@ -13,8 +13,9 @@ function TeacherPage() {
   const { auth, setAuth } = useAuth();
   const [bollSucces, setbollSucces] = useState(false);
   const [categoryShow, setCategoryShow] = useState(false);
-  const [pointToGive, setPointToGive] = useState({});
+  const [pointToGive, setPointToGive] = useState([]);
   const [cayegoryChoosen, setCayegoryChoosen] = useState('');
+  const [updateStudentLocalPoint,setUpdateStudentLocalPoint] = useState(false);
 
   const handelSubmit = () => {
     setCategoryShow(false)
@@ -23,6 +24,8 @@ function TeacherPage() {
     console.log(pointToGive);
     console.log(cayegoryChoosen);
     sendPoint();
+
+
 
   }
   const sendPoint = async () => {
@@ -35,6 +38,7 @@ function TeacherPage() {
       });
       
       setbollSucces(!bollSucces)
+      setUpdateStudentLocalPoint(!updateStudentLocalPoint)
       console.log(resp.data)
 
     }
@@ -58,7 +62,7 @@ function TeacherPage() {
       <div className='w-[900px] m-auto  grid grid-cols-12 space-x-8 h-full '>
 
         <div className='md:col-span-10 w-full'>
-          <ListUsers onData={setPointToGive} />
+          <ListUsers onData={setPointToGive} onSendPoints={{cayegoryChoosen,pointToGive,updateStudentLocalPoint}}/>
         </div>
         <div className=' md:col-span-2'>
           <button onClick={() => setCategoryShow(!categoryShow)} className='rounded-3xl bg-tailwind-green text-white text-3xl w-36 h-28'>הוספת ניקוד</button>
@@ -70,7 +74,7 @@ function TeacherPage() {
 
 
         </div>
-        <button onClick={handelSubmit} className='fixed bottom-28 rounded-3xl bg-tailwind-green text-white text-3xl w-36 h-28'>שליחה</button>
+        <button onClick={handelSubmit} disabled={cayegoryChoosen==0 || pointToGive.length == 0} className='fixed bottom-28 rounded-3xl bg-tailwind-green text-white text-3xl w-36 h-28'>שליחה</button>
 
       </div>
 

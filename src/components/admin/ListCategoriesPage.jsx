@@ -3,7 +3,7 @@ import NavAdmin from './NavAdmin'
 import axios from '../../api/urls'
 import CategoryInfo from './CategoryInfo';
 import EditCategory from './EditCategory';
-import CircleDesign from '../CircleDesign';
+
 import HeaderAdmin from './HeaderAdmin';
 
 
@@ -75,6 +75,8 @@ function ListCategoriesPage() {
 
   // delete category
   const deleteCategory = async (id) => {
+    const confirmed = window.confirm("האם אתה בטוח שברצונך למחוק קטגוריה זאת?");
+    if (!confirmed) return;
     try {
       const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
       const resp = await axios.delete(`/categories/${id}`, {
@@ -141,7 +143,7 @@ function ListCategoriesPage() {
 
 
       <NavAdmin />
-      <CircleDesign/>
+
 
     </div>
           </>
