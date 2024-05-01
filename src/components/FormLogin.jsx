@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hook/useAuth';
+import axios from '../../src/api/urls';
 
 
 
@@ -22,8 +22,8 @@ function FormLogin() {
   }
 
   const apiLogin = async (data) => {
-    const url = 'http://localhost:3003/users/login';
-    const resp = await axios.post(url, data);
+
+    const resp = await axios.post('users/login', data);
     setAuth(resp.data);
     setCookies(resp.data.token, true);
 
