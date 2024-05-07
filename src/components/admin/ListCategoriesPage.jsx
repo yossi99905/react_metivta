@@ -97,8 +97,8 @@ function ListCategoriesPage() {
 
   return (
 <>
-<HeaderAdmin/>
-    <div className='flex h-lvh justify-end'>
+
+    <div className='flex  justify-end'>
       <div className="w-lvw mx-9 my-32 max-w-[700px]">
         <div className='space-y-2'>
           <div className="grid grid-cols-10 text-center  h-8 font-bold    px-10 *:self-center">

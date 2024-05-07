@@ -74,7 +74,7 @@ function TeacherPage() {
 
 
         </div>
-        <button onClick={handelSubmit} disabled={cayegoryChoosen==0 || pointToGive.length == 0} className='fixed bottom-28 rounded-3xl bg-tailwind-green text-white text-3xl w-36 h-28'>שליחה</button>
+        <button onClick={handelSubmit} disabled={cayegoryChoosen==0 || pointToGive.length == 0} className={`${cayegoryChoosen==0 || pointToGive.length == 0 && "bg-tailwind-green-bright"} fixed bottom-28 rounded-3xl bg-tailwind-green text-white text-3xl w-36 h-28`}>שליחה</button>
 
       </div>
 

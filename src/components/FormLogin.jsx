@@ -42,7 +42,7 @@ function FormLogin() {
 
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col  space-y-4 w-full '>
         <input {...register("email", { required: true, minLength: 2 })} type="text" placeholder="הזן שם משתמש" className='rounded-2xl p-2 text-right w-full' />
-        <input {...register("password", { required: true, minLength: 2 })} type="text" placeholder="הזן סיסמה" className='rounded-2xl p-2 text-right w-full' />
+        <input {...register("password", { required: true, minLength: 2 })} type="password" placeholder="הזן סיסמה" className='rounded-2xl p-2 text-right w-full' />
 
         <button type='submit' className=' rounded-2xl p-2 bg-tailwind-green text-white '>התחבר</button>
 

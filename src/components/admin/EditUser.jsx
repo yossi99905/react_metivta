@@ -14,27 +14,24 @@ function EditUser({ showEditForm = false, onClickCloseBtn, name,_id,role, email,
             <div className='flex justify-center items-center max-w-[500px] m-auto rounded-lg mt-28  '>
                 <form onSubmit={handleSubmit(onClickEdit)} className='bg-tailwind-cream px-7 flex flex-col  space-y-2 text-center  py-6 w-full rounded-lg'>
                     <button className=' text-start ml-10' onClick={onClickCloseBtn}>X</button>
-                    <label htmlFor="">name</label>
+                    <label htmlFor="">שם התלמיד</label>
                     <input defaultValue={name} {...register("name", { required: true, minLength: 2 })} type="text" placeholder="הזן שם תלמיד" className='rounded-2xl p-2 text-right w-full' />
-                    <label htmlFor="">email</label>
+                    <label htmlFor="">איימל</label>
                     <input defaultValue={email} {...register("email", { required: true, minLength: 4 })} type="text" placeholder="הזן איימל" className='rounded-2xl p-2 text-right w-full' />
-                    {/* <div className='text-center'>
-                    <input defaultValue={name} {...register("password", { required: true, minLength: 3 })} type="password" placeholder="הזן סיסמה" className='rounded-2xl p-2 text-right w-full' />
-                    {errors.password && <span className='text-center text-sm text-red-600 '>סיסמה חייבת להיות באורך של 3 תווים לפחות</span>}
-                </div> */}
-                    <label htmlFor="">role</label>
+                    <label htmlFor="">תפקיד</label>
                     <select {...register("role", { required: true })} defaultValue={role} className='rounded-2xl p-2 text-right w-full'>
-                        <option value="3000">מנהל</option>
-                        <option value="2000">מורה</option>
                         <option value="1000">תלמיד</option>
+                        <option value="2000">מורה</option>
+                        <option value="3000">קיוסקאי</option>
+                        <option value="4000">מנהל</option>
                     </select>
-                    <label htmlFor="">classRoom</label>
+                    <label htmlFor="">כיתה</label>
                     <input defaultValue={classRoom} {...register("classRoom", { required: true, min: 1 })} type="text" placeholder="הזן כיתה" className='rounded-2xl p-2 text-right w-full' />
-                    <label htmlFor="">ID</label>
+                    <label htmlFor="">ת.ז</label>
                     <input defaultValue={ID} {...register("ID", { required: true, minLength: 2 })} type="text" placeholder="הזן תעודת זהות" className='rounded-2xl p-2 text-right w-full' />
-                    <label htmlFor="">score</label>
+                    <label htmlFor="">ניקוד</label>
                     <input defaultValue={score} {...register("score")} type="number" placeholder="הזן מספר נקודות" className='rounded-2xl p-2 text-right w-full' />
-                    <label htmlFor="">date of birth</label>
+                    <label htmlFor="">תאריך לידה</label>
                     <input defaultValue={dateOfBirth} {...register("dateOfBirth", { required: false, minLength: 2, })} type="text" placeholder="הזן יום הולדת" className='rounded-2xl p-2 text-right w-full' />
 
 

@@ -21,6 +21,7 @@ import StorePage from './pages/StorePage';
 import StoreManagementPage from './components/store/StoreManagementPage';
 import NewItemPage from './components/store/NewItemPage';
 import ListItemsPage from './components/store/ListItemsPage';
+import HeaderAdmin from './components/admin/HeaderAdmin';
 // import beforeunload from './auth/beforeunload';
 
 
@@ -50,22 +51,24 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={["3000"]} />}>
             <Route path="/store" element={<StorePage />} />
-            <Route path="/store/storeanagement" element={<StoreManagementPage/>} />
-            <Route path="/store/newItem" element={<NewItemPage/>} />
-            <Route path="/store/ListItems" element={<ListItemsPage/>} />
+            <Route path="/store/storeanagement" element={<StoreManagementPage />} />
+            <Route path="/store/newItem" element={<NewItemPage />} />
+            <Route path="/store/ListItems" element={<ListItemsPage />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={["4000"]} />}>
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-            <Route path="/admin/newUser" element={<NewUserPage />} />
-            <Route path="/admin/listUsers" element={<ListUsersPage />} />
-            <Route path="/admin/newCategory" element={<NewCategoryPage />} />
-            <Route path="/admin/listCategories" element={<ListCategoriesPage />} />
+            
+            
+            <Route path="/admin" element={<><HeaderAdmin /><DashboardAdmin /></>} />
+            <Route path="/admin/dashboard" element={<><HeaderAdmin /><DashboardAdmin /></>} />
+            <Route path="/admin/newUser" element={<><HeaderAdmin /><NewUserPage /></>} />
+            <Route path="/admin/listUsers" element={<><HeaderAdmin /><ListUsersPage /></>} />
+            <Route path="/admin/newCategory" element={<><HeaderAdmin /><NewCategoryPage /></>} />
+            <Route path="/admin/listCategories" element={<><HeaderAdmin /><ListCategoriesPage /></>} />
           </Route>
-          
 
 
+<Route path="/admin/*" element={<HeaderAdmin />} />
 
           <Route path="/*" element={<MissingPage />} />
         </Route>

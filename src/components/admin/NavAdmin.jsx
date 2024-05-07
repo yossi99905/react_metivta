@@ -8,7 +8,7 @@ import CircleDesign from '../CircleDesign'
 
 function NavAdmin() {
   return (
-    <div className='min-w-[70px] md:min-w-[250px] bg-tailwind-green nuvLink'>
+    <div className='min-w-[70px] h-lvh md:min-w-[250px] bg-tailwind-green nuvLink sticky top-0'>
       <ul className='text-end my-40 text-white text-opacity-70' >
         <div className='hidden md:block '>
           <NavLink to={'/admin/dashboard'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center '>לוח מכוונים</li></NavLink>

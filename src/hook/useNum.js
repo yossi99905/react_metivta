@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function useNum({ autoplay, score }) {
-    const [num, setNum] = useState(0);
+    const [num, setNum] = useState(score > 70? score-70 : score);
     const [catchInterval, setCatchInterval] = useState(null);
 
     const start = () => {
@@ -19,7 +19,7 @@ function useNum({ autoplay, score }) {
                     }
                     );
 
-                }, 18)
+                }, 18 )
             );
         }
     };

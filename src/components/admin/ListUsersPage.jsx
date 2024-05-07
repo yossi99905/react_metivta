@@ -112,7 +112,7 @@ function ListUsersPage() {
 
     return (
 
-        <div className='flex h-lvh justify-end'>
+        <div className='flex  justify-end'>
             <div className="w-lvw mx-9 my-32 max-w-[700px]">
                 <div className='space-y-2'>
 
@@ -137,9 +137,9 @@ function ListUsersPage() {
                                 <UserInfo key={index} name={user.name} email={user.email}
                                     classRoom={user.classRoom == 1? 'א' : user.classRoom == 2? 'ב' : user.classRoom == 3? 'ג' : user.classRoom == 4? 'ד' : 'לא משויך'}
                                     role={
-                                        user.role.length > 0 ? (user.role[0] == '3000' ? 'מנהל' : user.role[0] == '2000' ? 'מורה' : 'תלמיד'
+                                        user.role.length > 0 ? (user.role[0] == '4000' ? 'מנהל' : user.role[0] == '2000' ? 'מורה' : user.role[0] == "1000" ? 'תלמיד' : 'קיוסקאי'
                                         ) :
-                                            user.role == '3000' ? 'מנהל' : user.role == '2000' ? 'מורה' : 'תלמיד'}
+                                            user.role == '4000' ? 'מנהל' : user.role == '2000' ? 'מורה' :user.role[0] == "1000" ? 'תלמיד' : 'קיוסקאי'}
                                     points={user.score}
                                     onClickEdit={() => clickEdit(user)}
                                     onDeleteUser={() => deleteUser(user._id)}

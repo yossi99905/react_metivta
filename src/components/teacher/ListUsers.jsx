@@ -113,7 +113,7 @@ function ListUsers({ onData, onSendPoints }) {
                     ))
                     : <li>אין משתמשים</li>}
             </div>
-            <button onClick={clicked}>click</button>
+            
         </div>
     )
 }
