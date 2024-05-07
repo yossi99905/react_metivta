@@ -12,7 +12,7 @@ function Home() {
         <NavLink to={'/admin'}>admin |</NavLink>
         <NavLink to={'/store'}>store</NavLink>
     </ul>
-    <img className='mt-[800px] mx-auto ' width={450}  src="./public/images/logo.png" alt="" />
+    <img className='mt-[800px] mx-auto ' width={450}  src="/images/logo.png" alt="" />
     </HeaderForPage>
    
     </div>
