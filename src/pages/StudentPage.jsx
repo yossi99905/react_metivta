@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import HeaderStyle from '../components/HeaderStyle'
+import UserInformation from '../components/student/UserInformation'
 
 import useNum from '../hook/useNum'
 import signOut from '../auth/signOut'
@@ -7,10 +8,15 @@ import useAuth from '../hook/useAuth'
 import { useNavigate } from 'react-router-dom'
 import HeaderForPage from '../components/HeaderForPage'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faRightFromBracket, faUser,faHome } from '@fortawesome/free-solid-svg-icons'
+
 function StudentPage() {
     const { auth, setAuth } = useAuth();
     const navigate = useNavigate();
     const { num, start } = useNum({ autoplay: true, score: auth.score })
+
+    const [showUserInformtion, setShowUserInformtion] = useState(false)
 
     useEffect(() => {
         start()
@@ -20,11 +26,22 @@ function StudentPage() {
            
             <HeaderForPage>
               
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10 '></div>
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center' onClick={() => { signOut(navigate); setAuth({}) }}>sign out</div>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center' onClick={()=>setShowUserInformtion(perv=>!perv)}>
+                        <FontAwesomeIcon icon={faUser} className='text-tailwind-green text-xl' />
+                    </div>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10 flex justify-center items-center'>
+                        <FontAwesomeIcon icon={faHome} className='text-tailwind-green text-xl' onClick={() => navigate('/')} />
+                    </div>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center' onClick={() => { signOut(navigate); setAuth({}) }}>
+                        <FontAwesomeIcon icon={faRightFromBracket} className='text-tailwind-green text-xl' />
+                    </div>
                     <p className='text-white text-3xl'>{auth.name}</p>
               
             </HeaderForPage>
+            
+            <UserInformation name={auth.name} purchaseCode={auth.purchaseCode} active={showUserInformtion} />
+
+
             <div className='container m-auto text-center '>
                 <div className='flex flex-col text-center m-auto space-y-3 mt-52'>
                     <h1 className='text-tailwind-green font-bold text-[120px] mb-[-35px]'>{num}</h1>

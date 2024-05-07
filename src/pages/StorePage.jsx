@@ -84,12 +84,12 @@ function StorePage() {
                     if (updatedList[index].amount > 1) {
                         updatedList[index] = { ...updatedList[index], amount: updatedList[index].amount - 1 };
                     } else {
-                        // אם הכמות קטנה מ-1, אז נסיר את המוצר מהעגלה
+                        // if amount is 1, remove the product from the list
                         updatedList.splice(index, 1);
                     }
                 }
 
-                // חשב מחדש את סכום התשלום
+                // calculate the new toPay
                 const newToPay = updatedList.reduce((total, product) => total + product.price * product.amount, 0);
                 setToPay(newToPay);
 
@@ -105,7 +105,7 @@ function StorePage() {
                 const updatedList = [...prevList];
                 updatedList.splice(index, 1);
 
-                // חשב מחדש את סכום התשלום
+                // calculate the new toPay
                 const newToPay = updatedList.reduce((total, product) => total + product.price * product.amount, 0);
                 setToPay(newToPay);
 
