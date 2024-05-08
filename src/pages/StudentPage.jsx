@@ -26,13 +26,13 @@ function StudentPage() {
            
             <HeaderForPage>
               
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center' onClick={()=>setShowUserInformtion(perv=>!perv)}>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300' onClick={()=>setShowUserInformtion(perv=>!perv)}>
                         <FontAwesomeIcon icon={faUser} className='text-tailwind-green text-xl' />
                     </div>
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10 flex justify-center items-center'>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10 flex justify-center items-center hover:shadow-lg transition duration-300'>
                         <FontAwesomeIcon icon={faHome} className='text-tailwind-green text-xl' onClick={() => navigate('/')} />
                     </div>
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center' onClick={() => { signOut(navigate); setAuth({}) }}>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300' onClick={() => { signOut(navigate); setAuth({}) }}>
                         <FontAwesomeIcon icon={faRightFromBracket} className='text-tailwind-green text-xl' />
                     </div>
                     <p className='text-white text-3xl'>{auth.name}</p>
@@ -44,7 +44,7 @@ function StudentPage() {
 
             <div className='container m-auto text-center '>
                 <div className='flex flex-col text-center m-auto space-y-3 mt-52'>
-                    <h1 className='text-tailwind-green font-bold text-[120px] mb-[-35px]'>{num}</h1>
+                    <h1 className='text-tailwind-green font-bold text-[120px] mb-[-35px]'><span className='text-6xl '>$</span>{num.toFixed(0)}</h1>
                     <div className='text-white rounded-full   text-[60px] bg-tailwind-green m-auto px-10'>יתרתך הנוכחית</div>
                     <button className=' p-2 text-tailwind-green m-auto text-[40px]'>פעולות אחרונות</button>
                 </div>

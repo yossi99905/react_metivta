@@ -64,7 +64,7 @@ function AddMultyUsers() {
 
 
     return (
-        <div className="App">
+        <div className="App flex flex-col justify-center items-center">
 
             <input
                 type="file"
@@ -93,8 +93,8 @@ function AddMultyUsers() {
                 </table>
             )}
 
-            <br /><br />
-            ... webstylepress ...
+           
+        
         </div>
     );
 }
