@@ -10,6 +10,7 @@ import FormToPay from '../components/store/FormToPay'
 import { useNavigate } from 'react-router-dom'
 import signOut from '../auth/signOut'
 import UserInformation from '../components/UserInformation'
+import GeneralItem from '../components/store/GeneralItem'
 
 
 
@@ -58,6 +59,22 @@ function StorePage() {
         , [])
 
     const addProductToShoppingCart = useCallback((productDetails) => {
+        // add product to shopping cart
+        setShoppingCartList(prevList => {
+            const index = prevList.findIndex(element => element.name === productDetails.name);
+            if (index !== -1) {
+                const updatedList = [...prevList];
+                updatedList[index] = { ...updatedList[index], amount: updatedList[index].amount + 1 };
+                return updatedList;
+            } else {
+                return [...prevList, { ...productDetails, amount: 1 }];
+            }
+        });
+
+        setToPay(prevToPay => prevToPay + productDetails.price);
+    }, [setShoppingCartList]);
+
+    const addGeneralItemToShoppingCart = useCallback((productDetails) => {
         // add product to shopping cart
         setShoppingCartList(prevList => {
             const index = prevList.findIndex(element => element.name === productDetails.name);
@@ -150,9 +167,9 @@ function StorePage() {
             </div>
 
             {/* cart */}
-            <div className='row-span-11 col-span-2 h-[90lvh] overflow-scroll'>
-                <div className='flex h-20'>
-                    <div className='size-4 bg-tailwind-cream rounded-full '></div>
+            <div className='row-span-11 col-span-2  overflow-scroll'>
+                <div className='flex h-20 justify-center space-x-1'>
+                    <div className='w-40 h-10 flex justify-center items-center text-2xl bg-tailwind-cream rounded-lg '>${toPay.toFixed(2)}</div>
                     <div onClick={clearShopingCart} className='size-10 bg-tailwind-cream rounded-full flex justify-center items-center'><FontAwesomeIcon className='text-xl' icon={faTrashCan} /></div>
                 </div>
                 <div className='flex flex-col space-y-1'>
@@ -179,8 +196,18 @@ function StorePage() {
 
             </div>
 
+
             {/* products list */}
             <div className='border-l-8 border-tailwind-green col-span-7 row-span-11 pt-16 h-[90lvh] '>
+                <div className='flex flex-wrap justify-start flex-row-reverse *:mx-2 *:my-2' >
+
+                    <GeneralItem name='פריט כללי' onClickProductCard={addGeneralItemToShoppingCart} />
+                </div>
+
+                <div className='w-full flex  justify-end mr-2'>
+                    <div className='w-[90%] bg-black h-[1px] my-4'></div>
+                </div>
+
                 <div className='flex flex-wrap justify-start flex-row-reverse *:mx-2 *:my-2' >
                     {
                         productsList.length ?

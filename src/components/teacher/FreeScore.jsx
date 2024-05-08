@@ -27,7 +27,9 @@ function FreeScore({ onData }) {
                 type="number"
                 value={counter}
                 onChange={handleInputChange}
-                className='text-xl w-16'
+                className='text-xl w-16 text-center'
+                readonly
+                min={0}
             />
             <button className='rounded-lg bg-tailwind-cream border-spacing-1 border border-black size-8 text-xl' onClick={() => setCounter(prev => prev + 1)}>+</button>
         </div>
