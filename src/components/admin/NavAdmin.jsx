@@ -52,7 +52,6 @@ function NavAdmin() {
 
       </ul>
 
-      {/* <CircleDesign /> */}
 
     </div>
   )

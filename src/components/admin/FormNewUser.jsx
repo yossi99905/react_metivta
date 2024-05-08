@@ -37,7 +37,7 @@ function FormNewUser({ onClickSubmit }) {
 
         console.log(data)
         newUsers(data)
-        reset({ name: '', email: '', classRoom: '', password: '', ID: '', dateOfBirth: '' });
+        reset({firstName:'',lastName:'', email: '', classRoom: '', password: '', ID: '', dateOfBirth: '', });
 
         onClickSubmit()
 
@@ -49,7 +49,8 @@ function FormNewUser({ onClickSubmit }) {
 
 
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col  space-y-8 my-10 mx-4 '>
-                <input {...register("name", { required: true, minLength: 2 })} type="text" placeholder="הזן שם תלמיד" className='rounded-2xl p-2 text-right w-full' />
+                <input {...register("firstName", { required: true, minLength: 2 })} type="text" placeholder="הזן שם פרטי" className='rounded-2xl p-2 text-right w-full' />
+                <input {...register("lastName", { required: true, minLength: 2 })} type="text" placeholder="הזן שם משפחה" className='rounded-2xl p-2 text-right w-full' />
                 <input {...register("email", { required: true, minLength: 4 })} type="text" placeholder="הזן איימל" className='rounded-2xl p-2 text-right w-full' />
                 <div className='text-center'>
                     <input {...register("password", { required: true, minLength: 3 })} type="password" placeholder="הזן סיסמה" className='rounded-2xl p-2 text-right w-full' />
@@ -59,7 +60,7 @@ function FormNewUser({ onClickSubmit }) {
                     <option value={["1000"]}>תלמיד</option>
                     <option value={["2000"]}>מורה</option>
                 </select>
-                <input {...register("classRoom", { required: true, min: 1 })} type="text" placeholder="הזן כיתה" className='rounded-2xl p-2 text-right w-full' />
+                <input {...register("classRoom", { required: true, min: 0 })} type="text" placeholder="הזן כיתה" className='rounded-2xl p-2 text-right w-full' />
                 <input {...register("ID", { required: true, minLength: 2 })} type="text" placeholder="הזן תעודת זהות" className='rounded-2xl p-2 text-right w-full' />
                 <input {...register("dateOfBirth", { required: false, minLength: 2, })} type="text" placeholder="הזן יום הולדת" className='rounded-2xl p-2 text-right w-full' />
 

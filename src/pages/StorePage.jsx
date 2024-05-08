@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket, faUser, faCartShopping, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket, faUser, faCartShopping, faTrashCan, faHome } from '@fortawesome/free-solid-svg-icons'
 import ProductCard from '../components/store/ProductCard'
 import CartProduct from '../components/store/CartProduct'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -7,6 +7,11 @@ import axios from '../api/urls'
 import { NavLink } from 'react-router-dom'
 import useAuth from '../hook/useAuth'
 import FormToPay from '../components/store/FormToPay'
+import { useNavigate } from 'react-router-dom'
+import signOut from '../auth/signOut'
+import UserInformation from '../components/UserInformation'
+
+
 
 
 
@@ -14,11 +19,13 @@ import FormToPay from '../components/store/FormToPay'
 
 function StorePage() {
     const { auth, setAuth } = useAuth();
+    const navigate = useNavigate();
 
     const [productsList, setproductsList] = useState([])
     const [shoppingCartList, setShoppingCartList] = useState([])
     const [toPay, setToPay] = useState(0)
     const [isFormToPay, setIsFormToPay] = useState(false)
+    const [showUserInformtion, setShowUserInformtion] = useState(false)
 
     useEffect(() => {
         let isMounted = true
@@ -124,14 +131,20 @@ function StorePage() {
                     <FontAwesomeIcon className='text-white mr-6 text-3xl' icon={faCartShopping} />
                 </div>
                 <div className='col-span-7 flex justify-end items-center space-x-2 mr-5 '>
-                    <p className='font-bold text-xl'>{auth.name}</p>
-                    <FontAwesomeIcon className='text-2xl' icon={faUser} />
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10 flex items-center justify-center'>
-                        <FontAwesomeIcon icon={faRightFromBracket} />
-                    </div>
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center'>
-                        <NavLink to={'/store/storeanagement'}>ניהול חנות</NavLink>
+                    <p className='text-white text-3xl'>{auth.firstName + " " + auth.lastName}</p>
 
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300 ' onClick={() => setShowUserInformtion(perv => !perv)}>
+                        <FontAwesomeIcon icon={faUser} className='text-tailwind-green text-xl' />
+                        <UserInformation name={auth.firstName + " " + auth.lastName} purchaseCode={auth.purchaseCode} active={showUserInformtion} right={20} />
+                    </div>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10 flex justify-center items-center hover:shadow-lg transition duration-300'>
+                        <FontAwesomeIcon icon={faHome} className='text-tailwind-green text-xl' onClick={() => navigate('/')} />
+                    </div>
+                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300' onClick={() => { signOut(navigate); setAuth({}) }}>
+                        <FontAwesomeIcon icon={faRightFromBracket} className='text-tailwind-green text-xl' />
+                    </div>
+                    <div className='bg-tailwind-cream rounded-lg h-10 w-10  text-sm text-center'>
+                        <NavLink to={'/store/storeanagement'}>ניהול חנות</NavLink>
                     </div>
                 </div>
             </div>

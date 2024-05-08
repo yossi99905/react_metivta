@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import HeaderStyle from '../components/HeaderStyle'
-import UserInformation from '../components/student/UserInformation'
+import UserInformation from '../components/UserInformation'
 
 import useNum from '../hook/useNum'
 import signOut from '../auth/signOut'
@@ -35,11 +35,11 @@ function StudentPage() {
                     <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300' onClick={() => { signOut(navigate); setAuth({}) }}>
                         <FontAwesomeIcon icon={faRightFromBracket} className='text-tailwind-green text-xl' />
                     </div>
-                    <p className='text-white text-3xl'>{auth.name}</p>
+                    <p className='text-white text-3xl'>{auth.firstName + " " + auth.lastName}</p>
               
             </HeaderForPage>
             
-            <UserInformation name={auth.name} purchaseCode={auth.purchaseCode} active={showUserInformtion} />
+            <UserInformation left={20} name={auth.firstName + " " + auth.lastName} purchaseCode={auth.purchaseCode} active={showUserInformtion} />
 
 
             <div className='container m-auto text-center '>

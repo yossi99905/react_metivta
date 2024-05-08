@@ -134,7 +134,7 @@ function ListUsersPage() {
                         users.length > 0 ?
                             users.map((user, index) => (
 
-                                <UserInfo key={index} name={user.name} email={user.email}
+                                <UserInfo key={index} name={user.lastName + " " + user.firstName} email={user.email}
                                     classRoom={user.classRoom == 1? 'א' : user.classRoom == 2? 'ב' : user.classRoom == 3? 'ג' : user.classRoom == 4? 'ד' : 'לא משויך'}
                                     role={
                                         user.role.length > 0 ? (user.role[0] == '4000' ? 'מנהל' : user.role[0] == '2000' ? 'מורה' : user.role[0] == "1000" ? 'תלמיד' : 'קיוסקאי'
@@ -151,7 +151,7 @@ function ListUsersPage() {
                     }
 
 
-                    {editUsers && <EditUser showEditForm={editUsers} onClickCloseBtn={() => setEditUsers(null)} name={editUsers.name} email={editUsers.email} role={editUsers.role[0] == "3000" ? "3000" : editUsers.role[0] == "2000" ? "2000" : "1000"} classRoom={editUsers.classRoom} ID={editUsers.ID} dateOfBirth={editUsers.dateOfBirth} score={editUsers.score} onClickEdit={editUserOnList} />}
+                    {editUsers && <EditUser showEditForm={editUsers} onClickCloseBtn={() => setEditUsers(null)} firstName={editUsers.firstName} lastName={editUsers.lastName} email={editUsers.email} role={editUsers.role[0] == "3000" ? "3000" : editUsers.role[0] == "2000" ? "2000" : "1000"} classRoom={editUsers.classRoom} ID={editUsers.ID} dateOfBirth={editUsers.dateOfBirth} score={editUsers.score} onClickEdit={editUserOnList} />}
                 </div>
             </div>
 

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios from '../../api/urls';
 
 
-function EditUser({ showEditForm = false, onClickCloseBtn, name,_id,role, email, classRoom, ID, dateOfBirth, score, onClickEdit}) {
+function EditUser({ showEditForm = false, onClickCloseBtn, firstName,lastName,_id,role, email, classRoom, ID, dateOfBirth, score, onClickEdit}) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 
@@ -15,7 +15,9 @@ function EditUser({ showEditForm = false, onClickCloseBtn, name,_id,role, email,
                 <form onSubmit={handleSubmit(onClickEdit)} className='bg-tailwind-cream px-7 flex flex-col  space-y-2 text-center  py-6 w-full rounded-lg'>
                     <button className=' text-start ml-10' onClick={onClickCloseBtn}>X</button>
                     <label htmlFor="">שם התלמיד</label>
-                    <input defaultValue={name} {...register("name", { required: true, minLength: 2 })} type="text" placeholder="הזן שם תלמיד" className='rounded-2xl p-2 text-right w-full' />
+                    <input defaultValue={firstName} {...register("firstName", { required: true, minLength: 2 })} type="text" placeholder="הזן שם פרטי" className='rounded-2xl p-2 text-right w-full' />
+                    <label htmlFor="">שם התלמיד</label>
+                    <input defaultValue={lastName} {...register("lastName", { required: true, minLength: 2 })} type="text" placeholder="הזן שם משפחה" className='rounded-2xl p-2 text-right w-full' />
                     <label htmlFor="">איימל</label>
                     <input defaultValue={email} {...register("email", { required: true, minLength: 4 })} type="text" placeholder="הזן איימל" className='rounded-2xl p-2 text-right w-full' />
                     <label htmlFor="">תפקיד</label>

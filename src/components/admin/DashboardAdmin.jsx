@@ -12,7 +12,7 @@ function DashboardAdmin() {
         <div className='flex h-lvh justify-end'>
             <div className='w-lvw '>
 
-                {/* <HeaderAdmin /> */}
+             
                 <div className="mx-9 grid grid-cols-2 gap-4 my-32 h-[500px]">
                     <div className="border p-4 text-center flex flex-col justify-center items-center space-y-4">
                         <div className='flex justify-center items-center space-x-4'>

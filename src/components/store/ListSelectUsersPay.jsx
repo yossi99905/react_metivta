@@ -45,12 +45,12 @@ function ListSelectUsersPay({ name , onSelectUserEmail, showSelectUserEmail}) {
 
   const returnUsers = () => {
     return users.map((user, index) => {
-      if (user.name.includes(name)) {
+      if (user.firstName.includes(name) || user.lastName.includes(name) || user.email.includes(name)){
         return (
           <div key={index} className='flex justify-between items-end border-b p-2 ' onClick={() => {onSelectUserEmail(user.email);setShowSelect(false)}}>
             <p>${user.score}</p>
             <div className='text-end'>
-              <p>{user.name}</p>
+              <p>{user.firstName + " " + user.lastName}</p>
               <p>{user.email}</p>
             </div>
           </div>

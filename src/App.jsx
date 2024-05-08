@@ -45,11 +45,11 @@ function App() {
             <Route path="/student" element={<StudentPage />} />
           </Route>
 
-          <Route element={<RequireAuth allowedRoles={["2000"]} />}>
+          <Route element={<RequireAuth allowedRoles={["2000","4000"]} />}>
             <Route path="/teacher" element={<TeacherPage />} />
           </Route>
 
-          <Route element={<RequireAuth allowedRoles={["3000"]} />}>
+          <Route element={<RequireAuth allowedRoles={["3000","2000"]} />}>
             <Route path="/store" element={<StorePage />} />
             <Route path="/store/storeanagement" element={<StoreManagementPage />} />
             <Route path="/store/newItem" element={<NewItemPage />} />

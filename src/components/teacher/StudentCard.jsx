@@ -4,7 +4,7 @@ function StudentCard({ name, studentClass, score, onCheckboxChange, isChecked}) 
 
     return (
 
-        <div className="  rounded-3xl border border-tailwind-green flex justify-end items-center space-x-4 px-4 h-11 w-[710px]">
+        <div className="  rounded-3xl border border-tailwind-green flex justify-end items-center space-x-4 px-4 h-11 lg:w-[710px] md:w-[500px] sm:w-[410px]">
             <div className='flex justify-between w-full
 '>
 

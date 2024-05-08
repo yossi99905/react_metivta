@@ -100,7 +100,7 @@ function ListUsers({ onData, onSendPoints }) {
 
     return (
         <div>
-            <div className='space-y-3 flex flex-col items-end justify-end'>
+            <div className='space-y-3 flex flex-col items-end justify-end h-full'>
                 <div className='flex space-x-3'>
                     <label className='text-right'>בחר הכל</label>
                     <input type="checkbox" onChange={inputForSelectAll} className="appearance-none w-6 h-6 hover:bg-tailwind-green-bright   rounded-xl border border-gray-300 checked:bg-tailwind-green checked:border-transparent items-center justify-center" />
@@ -109,7 +109,7 @@ function ListUsers({ onData, onSendPoints }) {
 
                 {users.length ?
                     users.map((user, index) => (
-                        <StudentCard key={index} name={user.name} score={user.score} onCheckboxChange={handleCheckboxChange(index)} isChecked={selectedUsers.includes(user.email) } />
+                        <StudentCard key={index} name={user.firstName + " " + user.lastName} score={user.score} onCheckboxChange={handleCheckboxChange(index)} isChecked={selectedUsers.includes(user.email) } />
                     ))
                     : <li>אין משתמשים</li>}
             </div>
