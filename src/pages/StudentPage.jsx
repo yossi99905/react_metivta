@@ -39,7 +39,7 @@ function StudentPage() {
               
             </HeaderForPage>
             
-            <UserInformation left={20} name={auth.firstName + " " + auth.lastName} purchaseCode={auth.purchaseCode} active={showUserInformtion} />
+            <UserInformation left={"24"}  name={auth.firstName + " " + auth.lastName} classRoom={auth.classRoom}  secretCode={auth.secretCode} active={showUserInformtion} />
 
 
             <div className='container m-auto text-center '>

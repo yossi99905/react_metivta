@@ -1,7 +1,7 @@
 import './App.css'
 import 'tailwindcss/tailwind.css'
 import React, { useEffect } from 'react';
-import { Route, Routes, } from 'react-router-dom';
+import { Route, Routes, useLocation, } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import StudentPage from './pages/StudentPage';
 import TeacherPage from './pages/TeacherPage';
@@ -27,8 +27,14 @@ import HeaderAdmin from './components/admin/HeaderAdmin';
 
 function App() {
   const { refreshLogin } = refrshLoginAuth();
+  const location = useLocation();
+
   useEffect(() => refreshLogin, [])
   // beforeunload();
+  useEffect(() => {
+    document.cookie = `currentLocation=${location.pathname}`;
+  } , [location.pathname])
+
 
 
   return (

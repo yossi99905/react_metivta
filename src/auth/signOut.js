@@ -9,6 +9,9 @@ const signOut = (navigate) => {
    
     // Clear the token from cookies
     cookies.remove('token');
+    cookies.remove('isConnect');
+    cookies.remove('currentLocation');
+
    
 
     navigate("/", "/");

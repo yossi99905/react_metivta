@@ -4,13 +4,12 @@ import useAuth from '../hook/useAuth'
 
 
 
+
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAuth();
     const location = useLocation();
 
-
-
-
+    document.cookie = `currentLocation=${location.pathname}`;
     
     return (
 
@@ -27,8 +26,8 @@ const RequireAuth = ({ allowedRoles }) => {
         //             auth?.user ? <Navigate to='/' state={{ from: location }} replace /> :
         //                 <Navigate to='/login' state={{ from: location }} replace />
 
-
-
+      
+        
 
     )
 }

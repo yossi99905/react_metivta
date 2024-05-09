@@ -72,7 +72,7 @@ function TeacherPage() {
         </div>
         <p className='text-white text-3xl'>{auth.firstName + " " + auth.lastName}</p>
       </HeaderForPage>
-      <UserInformation left={20} name={auth.firstName + " " + auth.lastName} purchaseCode={auth.purchaseCode} active={showUserInformtion} />
+      <UserInformation left={24} name={auth.firstName + " " + auth.lastName} classRoom={auth.classRoom} secretCode={auth.secretCode} active={showUserInformtion} />
       <input type="text" placeholder='חיפוש תלמיד' className='border border-tailwind-green rounded-3xl text-right px-3 h-8 ml-28 mb-8 mt-9' />
 
       <div className=' mx-auto flex flex-row justify-center  items-start   space-x-8  '>

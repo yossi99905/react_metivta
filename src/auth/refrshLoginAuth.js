@@ -9,11 +9,13 @@ function useRefresh() {
     const setCookies = (token, isConnect) => {
         // Set the token as a cookie
         document.cookie = `token=${token}; path=/; expires=${new Date(Date.now() + 3600000).toUTCString()}`;
-        document.cookie = `isConnect=${isConnect}; path=/; expires=${new Date(Date.now() + 3600000).toUTCString()}`;
+        // document.cookie = `isConnect=${isConnect}; path=/; expires=${new Date(Date.now() + 3600000).toUTCString()}`;
     };
 
     const refreshLogin = async () => {
         const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('token='));
+        const locationCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('currentLocation='));
+        const location = locationCookie ? locationCookie.split('=')[1] : '/';
         try {
             if (token) {
                 console.log(token);
@@ -28,7 +30,7 @@ function useRefresh() {
                 setAuth(resp.data);
                 console.log(resp.data, "resp.data");
                 setCookies(resp.data.token, true);
-                navigate(auth.loction || '/');
+                navigate(location);
                 return;
             }
         } catch (err) {
