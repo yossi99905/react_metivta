@@ -152,7 +152,7 @@ function StorePage() {
 
                     <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300 ' onClick={() => setShowUserInformtion(perv => !perv)}>
                         <FontAwesomeIcon icon={faUser} className='text-tailwind-green text-xl' />
-                        <UserInformation name={auth.firstName + " " + auth.lastName} purchaseCode={auth.purchaseCode} active={showUserInformtion} right={20} />
+
                     </div>
                     <div className='bg-tailwind-cream rounded-full h-10 w-10 flex justify-center items-center hover:shadow-lg transition duration-300'>
                         <FontAwesomeIcon icon={faHome} className='text-tailwind-green text-xl' onClick={() => navigate('/')} />
@@ -164,10 +164,15 @@ function StorePage() {
                         <NavLink to={'/store/storeanagement'}>ניהול חנות</NavLink>
                     </div>
                 </div>
+
+                {/* user information */}
+                <div className=' absolute left-0 w-full flex justify-end mt-20 rounded-lg'>
+                    <UserInformation name={auth.firstName + " " + auth.lastName} classRoom={auth.classRoom} secretCode={auth.secretCode} active={showUserInformtion} right={20} />
+                </div>
             </div>
 
             {/* cart */}
-            <div className='row-span-11 col-span-2  overflow-scroll'>
+            <div className='row-span-11 col-span-5 sm:col-span-4 lg:col-span-2  overflow-scroll'>
                 <div className='flex h-20 justify-center space-x-1'>
                     <div className='w-40 h-10 flex justify-center items-center text-2xl bg-tailwind-cream rounded-lg '>${toPay.toFixed(2)}</div>
                     <div onClick={clearShopingCart} className='size-10 bg-tailwind-cream rounded-full flex justify-center items-center'><FontAwesomeIcon className='text-xl' icon={faTrashCan} /></div>
@@ -198,7 +203,7 @@ function StorePage() {
 
 
             {/* products list */}
-            <div className='border-l-8 border-tailwind-green col-span-7 row-span-11 pt-16 h-[90lvh] '>
+            <div className='border-l-8 border-tailwind-green col-span-4 sm:col-span-5 lg:col-span-7 row-span-11 pt-16 h-[90lvh] '>
                 <div className='flex flex-wrap justify-start flex-row-reverse *:mx-2 *:my-2' >
 
                     <GeneralItem name='פריט כללי' onClickProductCard={addGeneralItemToShoppingCart} />

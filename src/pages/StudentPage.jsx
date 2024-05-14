@@ -26,8 +26,8 @@ function StudentPage() {
            
             <HeaderForPage>
               
-                    <div className='bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300' onClick={()=>setShowUserInformtion(perv=>!perv)}>
-                        <FontAwesomeIcon icon={faUser} className='text-tailwind-green text-xl' />
+                    <div className={`${showUserInformtion && 'border border-black  '} bg-tailwind-cream rounded-full h-10 w-10  text-sm text-center flex justify-center items-center hover:shadow-lg transition duration-300 `}onClick={()=>setShowUserInformtion(perv=>!perv)}>
+                        <FontAwesomeIcon icon={faUser} className={`${showUserInformtion && '   '} text-tailwind-green text-xl`} />
                     </div>
                     <div className='bg-tailwind-cream rounded-full h-10 w-10 flex justify-center items-center hover:shadow-lg transition duration-300'>
                         <FontAwesomeIcon icon={faHome} className='text-tailwind-green text-xl' onClick={() => navigate('/')} />

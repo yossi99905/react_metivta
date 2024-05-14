@@ -66,7 +66,7 @@ function ListSelectUsersPay({ name , onSelectUserEmail, showSelectUserEmail}) {
   return (
     <div>
       <button onClick={() => setShowSelect(prev => !prev)}>🔼</button>
-      <div className={`${!showSelect && "hidden"}`}>
+      <div className={`${!showSelect && "hidden"} h-52 overflow-auto`}>
 
         {returnUsers()}
       </div>
