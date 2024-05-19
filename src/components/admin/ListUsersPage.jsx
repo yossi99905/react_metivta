@@ -135,7 +135,7 @@ function ListUsersPage() {
                             users.map((user, index) => (
 
                                 <UserInfo key={index} name={user.lastName + " " + user.firstName} email={user.email}
-                                    classRoom={user.classRoom == 1? 'א' : user.classRoom == 2? 'ב' : user.classRoom == 3? 'ג' : user.classRoom == 4? 'ד' : 'לא משויך'}
+                                    classRoom={user.classRoom == 1? 'א' : user.classRoom == 2? 'ב' : user.classRoom == 3? 'ג' : user.classRoom == 4? 'ד' : user.classRoom == 5? 'ה' : user.classRoom == 6? 'ו' : user.classRoom == 7? 'ז' : user.classRoom == 8? 'ח':user.classRoom == 9? 'ט' : user.classRoom == 10? 'י' : 'לא משויך'}
                                     role={
                                         user.role.length > 0 ? (user.role[0] == '4000' ? 'מנהל' : user.role[0] == '2000' ? 'מורה' : user.role[0] == "1000" ? 'תלמיד' : 'קיוסקאי'
                                         ) :
