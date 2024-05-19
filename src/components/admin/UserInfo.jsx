@@ -9,8 +9,8 @@ function UserInfo({ name, email, role, points, classRoom, onClickEdit, onDeleteU
 
         <div className="grid grid-cols-10 text-center  h-14    px-10 bg-tailwind-green-bright *:self-center">
 
-            <button onClick={() => onDeleteUser(email)} className=" col-span-3 bg-red-500 hover:bg-red-600 size-9 rounded-full opacity-70 sm:col-span-1 "><FontAwesomeIcon icon={faTrashCan} /></button>
-            <button onClick={() => onClickEdit()} className="col-span-3 bg-blue-500 opacity-70 rounded-full hover:bg-blue-600 size-9 sm:col-span-1"><FontAwesomeIcon icon={faPenToSquare} /></button>
+            <button disabled={email=='dudi0770@gmail.com'} onClick={() => onDeleteUser(email)} className=" col-span-3 bg-red-500 hover:bg-red-600 size-9 rounded-full opacity-70 sm:col-span-1 "><FontAwesomeIcon icon={faTrashCan} /></button>
+            <button disabled={email=='dudi0770@gmail.com'} onClick={() => onClickEdit()} className="col-span-3 bg-blue-500 opacity-70 rounded-full hover:bg-blue-600 size-9 sm:col-span-1"><FontAwesomeIcon icon={faPenToSquare} /></button>
 
             <p className="sm: col-span-2 hidden sm:block">{points}</p>
             <p className="sm:col-span-2 hidden sm:block">{classRoom}</p>
