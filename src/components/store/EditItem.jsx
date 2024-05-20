@@ -14,7 +14,7 @@ function EditItem({ showEditForm = false, onClickCloseBtn, name, price, category
                     <label htmlFor="">שם מוצר</label>
                     <input defaultValue={name} {...register("name", { required: true, minLength: 2,maxLength:30 })} type="text" placeholder="הזן שם מוצר" className='rounded-2xl p-2 text-right w-full' />
                     <label htmlFor="">מחיר</label>
-                    <input defaultValue={price} {...register("price", { required: true,min:0, max: 1000 })} type="number" placeholder="הזן מחיר" className='rounded-2xl p-2 text-right w-full' />
+                    <input defaultValue={price} {...register("price", { required: true,min:0, max: 1000 })} type="number" step="0.01" placeholder="הזן מחיר" className='rounded-2xl p-2 text-right w-full' />
                     <label htmlFor="">קטגוריה</label>
                     <input defaultValue={category} {...register("category", { required: true,minLength:2, maxLength: 20 })} type="text" placeholder="הזן קטגוריה" className='rounded-2xl p-2 text-right w-full' />
                     <label htmlFor="">במלאי</label>
