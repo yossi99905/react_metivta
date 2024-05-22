@@ -60,7 +60,7 @@ function ListCayegory({ onData }) {
 
 
   return (
-    <div className="flex flex-col space-y-3 mt-5  rounded-3xl justify-center items-center">
+    <div className="w-[200px] sm:w-full flex flex-col space-y-3 mt-5  rounded-3xl justify-center items-center">
       {
         categories.length ?
           categories.map((category, index) => (

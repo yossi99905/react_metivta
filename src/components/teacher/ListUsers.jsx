@@ -100,7 +100,7 @@ function ListUsers({ onData, onSendPoints }) {
 
     return (
         <div>
-            <div className='space-y-3 flex flex-col items-end justify-end h-full'>
+            <div className='space-y-3 flex flex-col items-end justify-end h-full pb-14 sm:mb-0'>
                 <div className='flex space-x-3'>
                     <label className='text-right'>בחר הכל</label>
                     <input type="checkbox" onChange={inputForSelectAll} className="appearance-none w-6 h-6 hover:bg-tailwind-green-bright   rounded-xl border border-gray-300 checked:bg-tailwind-green checked:border-transparent items-center justify-center" />
