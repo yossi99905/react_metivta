@@ -22,6 +22,7 @@ function ListUsers({ onData, onSendPoints }) {
     // Update users state when received from parent component
     useEffect(() => {
         console.log(onSendPoints);
+        clicked();
         if (onSendPoints) {
             const { cayegoryChoosen, pointToGive } = onSendPoints;
             setUsers(prevUsers => {
@@ -51,20 +52,20 @@ function ListUsers({ onData, onSendPoints }) {
     };
 
     const clicked = () => {
-        console.log(selectedUsers);
+        setSelectedUsers([]);
     }
 
     const inputForSelectAll = (event) => {
         if (event.target.checked) {
-            setSelectedUsers(users.map(user => user.email)); 
-            
+            setSelectedUsers(users.map(user => user.email));
+
 
         } else {
             setSelectedUsers([]);
-            
+
         }
 
-       
+
     }
 
     useEffect(() => {
@@ -101,7 +102,8 @@ function ListUsers({ onData, onSendPoints }) {
     return (
         <div>
             <div className='space-y-3 flex flex-col items-end justify-end h-full pb-14 sm:mb-0'>
-                <div className='flex space-x-3'>
+                <div className='flex space-x-3 items-center'>
+                    <button onClick={clicked} className='bg-tailwind-green text-white rounded-xl h-10 w-20'>איפוס</button>
                     <label className='text-right'>בחר הכל</label>
                     <input type="checkbox" onChange={inputForSelectAll} className="appearance-none w-6 h-6 hover:bg-tailwind-green-bright   rounded-xl border border-gray-300 checked:bg-tailwind-green checked:border-transparent items-center justify-center" />
                 </div>
@@ -109,11 +111,12 @@ function ListUsers({ onData, onSendPoints }) {
 
                 {users.length ?
                     users.map((user, index) => (
-                        <StudentCard key={index} name={user.firstName + " " + user.lastName} score={user.score} onCheckboxChange={handleCheckboxChange(index)} isChecked={selectedUsers.includes(user.email) } />
+                        <StudentCard key={index} name={user.firstName + " " + user.lastName} score={user.score} onCheckboxChange={handleCheckboxChange(index)} isChecked={selectedUsers.includes(user.email)} />
                     ))
                     : <li>אין משתמשים</li>}
             </div>
-            
+
+
         </div>
     )
 }

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 import axios from "../../api/urls"
 import SuccesMessage from '../SuccesMessage'
 import ListSelectUsersPay from './ListSelectUsersPay';
 
-function FormToPay({ showFormToPay = false, numPay, closeFormToPay }) {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+function FormToPay({ showFormToPay = false, numPay, closeFormToPay, clearCart }) {
+    const { register, handleSubmit, reset, formState: { errors },setValue } = useForm();
     const [showMessage, setShowMessage] = useState(false)
     const [msgName, setMsgName] = useState('')
     const [inputNameValue, setInputNameValue] = useState('')
@@ -49,6 +49,10 @@ function FormToPay({ showFormToPay = false, numPay, closeFormToPay }) {
         setUserEmail(email)
     }
 
+    useEffect(() => {
+        setValue('email', userEmail);
+    }, [userEmail, setValue]);
+
     const inputOnChange = (e) => {
         setInputNameValue(e.target.value)
         setShowSelectUser(perv => !perv)
@@ -67,14 +71,14 @@ function FormToPay({ showFormToPay = false, numPay, closeFormToPay }) {
                     <form className='space-y-3' onSubmit={handleSubmit(onSubmit)} >
                         <input type="text" placeholder='חיפוש משתמש' className='rounded-2xl p-2 text-right w-full' onChange={(e) => inputOnChange(e)} />
                         <ListSelectUsersPay name={inputNameValue} onSelectUserEmail={setEmail} showSelectUserEmail={showSelectUser} />
-                        <input {...register("email", { required: true, minLength: 2 })} value={userEmail} type="text" placeholder="האימל הנבחר" className='rounded-2xl p-2 text-right w-full' />
+                        <input {...register("email", { required: true, minLength: 2 })} value={userEmail} onChange={e => setEmail(e.target.value)} type="text" placeholder="האימל הנבחר" className='rounded-2xl p-2 text-right w-full' />
                         <input {...register("secretCode", { required: true, minLength: 4, maxLength: 4 })} type="password" placeholder="הזן קוד" className='rounded-2xl p-2 text-right w-full' />
                         <input {...register("price", { required: true, minLength: 1 })} type="nunber" value={numPay} placeholder="הזן ניקוד" className='rounded-2xl p-2 text-right w-full' />
                         <button type='submit' className=' rounded-2xl p-2 bg-tailwind-green text-white w-full text-center'>שלח</button>
                     </form>
                 </div>
             </div>
-            <SuccesMessage show={showMessage} onClickBtn={() => { setShowMessage(false); closeFormToPay(); }} name={msgName} />
+            <SuccesMessage show={showMessage} onClickBtn={() => { setShowMessage(false); closeFormToPay(); clearCart() }} name={msgName} />
         </div>
     )
 }

@@ -196,7 +196,7 @@ function StorePage() {
                 </div>
                 {
                     isFormToPay &&
-                    <FormToPay showFormToPay={isFormToPay} numPay={toPay.toFixed(2)} closeFormToPay={() => setIsFormToPay(false)} />
+                    <FormToPay clearCart={clearShopingCart} showFormToPay={isFormToPay} numPay={toPay.toFixed(2)} closeFormToPay={() => setIsFormToPay(false)} />
                 }
 
             </div>
