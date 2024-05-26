@@ -5,7 +5,7 @@ import SuccesMessage from '../SuccesMessage'
 import ListSelectUsersPay from './ListSelectUsersPay';
 
 function FormToPay({ showFormToPay = false, numPay, closeFormToPay, clearCart }) {
-    const { register, handleSubmit, reset, formState: { errors },setValue } = useForm();
+    const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm();
     const [showMessage, setShowMessage] = useState(false)
     const [msgName, setMsgName] = useState('')
     const [inputNameValue, setInputNameValue] = useState('')
@@ -33,6 +33,10 @@ function FormToPay({ showFormToPay = false, numPay, closeFormToPay, clearCart })
             }
             if (resp.data.msg === 'user not found') {
                 alert('משתמש לא נמצא')
+                return;
+            }
+            if (resp.data.msg === 'Daily limit exceeded') {
+                alert('חרגת מהמגבלה היומית')
                 return;
             }
             setShowMessage(true)

@@ -3,9 +3,10 @@ import Category from "./Category"
 import axios from "../../api/urls"
 import FreeScore from "./FreeScore";
 
-function ListCayegory({ onData }) {
+function ListCayegory({ onData, categoryName }) {
   const [categories, setcategories] = useState([])
   const [categorySelection, setCategorySelection] = useState(0);
+  const [categoryNameChoosen, setCategoryNameChoosen] = useState("");
   const [categoryMarker, setcategoryMarker] = useState();
   const [freeScore, setFreeScore] = useState(0);
   const [perviousFreeScore, setPerviousFreeScore] = useState(0);
@@ -16,6 +17,7 @@ function ListCayegory({ onData }) {
 
     const data = categorySelection
     onData(data);
+    categoryName(categoryNameChoosen);
   }, [categorySelection]);
 
 
@@ -64,11 +66,11 @@ function ListCayegory({ onData }) {
       {
         categories.length ?
           categories.map((category, index) => (
-            <Category key={index} name={category.name} score={category.score} selected={categoryMarker == index} selectBtn={() => { setCategorySelection(category.score); setcategoryMarker(index) }} />
+            <Category key={index} name={category.name} score={category.score} selected={categoryMarker == index} selectBtn={() => { setCategorySelection(category.score); setcategoryMarker(index); setCategoryNameChoosen(category.name) }} />
           ))
           : <li>אין קטגוריות</li>
       }
-      <div className={` ${categoryMarker == -1 && "bg-tailwind-green"} h-20 flex items-center rounded-lg`} onClick={() => { setcategoryMarker(-1); setCategorySelection(perviousFreeScore) }}>
+      <div className={` ${categoryMarker == -1 && "bg-tailwind-green"} h-20 flex items-center rounded-lg`} onClick={() => { setcategoryMarker(-1); setCategorySelection(perviousFreeScore); setCategoryNameChoosen("ניקוד חופשי") }}>
         <FreeScore onData={handleDataFromFreeScore} />
       </div>
 

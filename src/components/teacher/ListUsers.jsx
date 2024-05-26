@@ -6,11 +6,15 @@ import useAuth from '../../hook/useAuth'
 
 
 
-function ListUsers({ onData, onSendPoints }) {
+function ListUsers({ onData, onSendPoints,setUsersForTransaction }) {
     const { auth } = useAuth();
 
     const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
+
+    useEffect(() => {
+        setUsersForTransaction(users);
+    }, [users])
 
 
     //send selected users to parent component
