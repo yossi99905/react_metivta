@@ -181,7 +181,7 @@ function StorePage() {
                     {
                         shoppingCartList.length ?
                             shoppingCartList.map((product, index) => {
-                                return <CartProduct key={index} name={product.name} price={product.price} amount={product.amount} editAmount={editAmount} onClearOneProduct={onClearOneProduct} />
+                                return <CartProduct key={index} name={product.name} price={product.price} amount={product.amount} editAmount={editAmount} onClearOneProduct={onClearOneProduct}  />
                             })
                             :
                             <>
