@@ -22,6 +22,7 @@ import StoreManagementPage from './components/store/StoreManagementPage';
 import NewItemPage from './components/store/NewItemPage';
 import ListItemsPage from './components/store/ListItemsPage';
 import HeaderAdmin from './components/admin/HeaderAdmin';
+import DashboardPage from './pages/DashboardPage';
 // import beforeunload from './auth/beforeunload';
 
 
@@ -44,6 +45,7 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/dashboard" element={<DashboardPage/>} />
 
 
 
