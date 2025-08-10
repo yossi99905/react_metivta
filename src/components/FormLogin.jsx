@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, useLocation } from "react-router-dom";
-import api from "../api/axiosInstance";
+import api, { setAuthToken } from "../api/axiosInstance";
 import { useState } from "react";
 import { useAuth } from "../atoms/authAtom";
 
@@ -40,8 +40,11 @@ function FormLogin() {
         firstName: resp.data.firstName,
         lastName: resp.data.lastName,
         role: resp.data.role || [],
-        score: resp.data.score
+        score: resp.data.score,
+        classRoom: resp.data.classRoom,
       });
+
+      setAuthToken(resp.data.accessToken);
 
       // ניווט ליעד האחרון או ברירת מחדל
       const lastVisited = localStorage.getItem("lastVisited") || from || "/student";

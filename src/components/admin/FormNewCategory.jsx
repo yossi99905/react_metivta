@@ -15,12 +15,7 @@ function FormNewCategory({ onClickSubmit }) {
 
     const newCategory = async (data) => {
         try {
-            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-            const resp = await axios.post("/categories", data, {
-                headers: {
-                    'x-api-key': accessToken
-                }
-            });
+            const resp = await axios.post("/categories", data);
             console.log(resp.data)
 
         }

@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import axios from "../api/axiosInstance";
+import axios, { setAuthToken } from "../api/axiosInstance";
 import { useAtom } from "jotai";
 import { authAtom } from "../atoms/authAtom";
 
@@ -19,7 +19,10 @@ export default function useUserRefresh() {
         lastName: response.data.lastName || prev.lastName,
         role: response.data.role || prev.role,
         score: response.data.score || prev.score,
+        classRoom: response.data.classRoom || prev.classRoom,
       }));
+
+      setAuthToken(response.data.accessToken);
 
       return response.data.accessToken;
     } catch (err) {

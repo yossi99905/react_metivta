@@ -1,40 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-function FreeScore({ onData }) {
-    const [counter, setCounter] = useState(0);
-    const [previousCounter, setPreviousCounter] = useState(0); // counter value from the previous render
+function FreeScore({ handleDataFromFreeScore, isSelected }) {
+  const [counter, setCounter] = useState(0);
 
-    useEffect(() => {
-        if (counter !== previousCounter) { // only call the function if the counter value has changed
-            onData(counter);
-            setPreviousCounter(counter); // update the previous counter value
-        }
-    }, [counter, previousCounter, onData]);
+  useEffect(() => {
+    handleDataFromFreeScore(counter);
+  }, [counter, handleDataFromFreeScore]);
 
-    const handleInputChange = (e) => {
-        const value = parseInt(e.target.value);
-        if (!isNaN(value)) {
-            setCounter(value);
-        } else {
-            setCounter(0); // reset to 0 if input is not a number
-        }
-    };
+  const handleInputChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    setCounter(isNaN(value) || value < 0 ? 0 : value);
+  };
 
-    return (
-        <div className='flex items-center justify-center h-12 space-x-2 px-2'>
-            <button className='rounded-lg bg-tailwind-cream border border-black size-8 text-xl' onClick={() => setCounter(prev => prev === 0 ? prev : prev - 1)}>-</button>
-            <input
-                type="number"
-                value={counter}
-                onChange={handleInputChange}
-                className='text-xl w-16 text-center'
-                
-                min={0}
-            />
-            <button className='rounded-lg bg-tailwind-cream border-spacing-1 border border-black size-8 text-xl' onClick={() => setCounter(prev => prev + 1)}>+</button>
-        </div>
-    );
+  return (
+    <div
+      className={`${isSelected ? "bg-tailwind-green" : ""} h-20 flex items-center rounded-lg`}
+      // אם רוצים, אפשר להוסיף onClick שמסמן בחירה
+      // onClick={() => ...}
+    >
+      <div className='flex items-center justify-center h-12 space-x-2 px-2'>
+        <button
+          className='rounded-lg bg-tailwind-cream border border-black w-8 h-8 text-xl'
+          onClick={(e) => {
+            e.stopPropagation();
+            setCounter(prev => Math.max(prev - 1, 0));
+          }}
+          aria-label="Decrease"
+        >
+          -
+        </button>
+        <input
+          type="number"
+          value={counter}
+          onChange={handleInputChange}
+          className='text-xl w-16 text-center'
+          min={0}
+        />
+        <button
+          className='rounded-lg bg-tailwind-cream border border-black w-8 h-8 text-xl'
+          onClick={(e) => {
+            e.stopPropagation();
+            setCounter(prev => prev + 1);
+          }}
+          aria-label="Increase"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default FreeScore;
-
