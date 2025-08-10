@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from '../../api/urls'
+import axios from '../../api/axiosInstance'
 import NavStore from './NavStore';
 import ItemInfo from './ItemInfo';
 import EditItem from './EditItem';
@@ -16,10 +16,10 @@ function ListItemsPage() {
 
     const getCategories = async () => {
       try {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+        const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
         const resp = await axios.get('/products', {
           headers: {
-            'x-api-key': token
+            'x-api-key': accessToken
           },
           signal: controller.signal
         });
@@ -51,10 +51,10 @@ function ListItemsPage() {
   const editItemOnList = async (data) => {
     console.log(data)
     try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
       const resp = await axios.put(`/products/${editItems._id}`, data, {
         headers: {
-          'x-api-key': token
+          'x-api-key': accessToken
         }
       });
       console.log(resp.data);
@@ -79,10 +79,10 @@ function ListItemsPage() {
       return;
     }
     try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
       const resp = await axios.delete(`/products/${id}`, {
         headers: {
-          'x-api-key': token
+          'x-api-key': accessToken
         }
       });
       console.log(resp.data)
@@ -133,12 +133,12 @@ function ListItemsPage() {
 
             }
             {
-                editItems &&
-                <EditItem showEditForm={editItems} name={editItems.name} price={editItems.price} category={editItems.category} inStock={editItems.inStock} isPinned={editItems.isPinned} inventoryCount={editItems.inventoryCount} barcodeNum={editItems.barcodeNum} image={editItems.image}
+              editItems &&
+              <EditItem showEditForm={editItems} name={editItems.name} price={editItems.price} category={editItems.category} inStock={editItems.inStock} isPinned={editItems.isPinned} inventoryCount={editItems.inventoryCount} barcodeNum={editItems.barcodeNum} image={editItems.image}
                 onClickCloseBtn={() => setEditItems(null)} onClickEditAction={editItemOnList}
-                />
-                
-              }
+              />
+
+            }
 
 
 

@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import signOut from '../auth/signOut'
 import ListUsers from '../components/teacher/ListUsers'
 import HeaderForPage from '../components/HeaderForPage'
-import useAuth from '../hook/useAuth'
+import { useAuth } from "../atoms/authAtom";
 import ListCayegory from '../components/teacher/ListCayegory'
 import SuccesMessage from '../components/SuccesMessage'
-import axios from '../api/urls'
-
+import axios from '../api/axiosInstance'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import UserInformation from '../components/UserInformation'
-import FreeScore from '../components/teacher/FreeScore'
 
 function TeacherPage() {
   const navigate = useNavigate();
@@ -42,10 +40,10 @@ function TeacherPage() {
   }
   const sendPoint = async () => {
     try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
       const resp = await axios.put("/teachers/givePoints", { email: pointToGive, points: cayegoryChoosen }, {
         headers: {
-          'x-api-key': token
+          'x-api-key': accessToken
         }
       });
 
@@ -61,7 +59,7 @@ function TeacherPage() {
 
   const transactionDocumentation = async () => {
     try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
 
       if (pointToGive.length === 0) {
         console.log("No points to give.");
@@ -71,8 +69,8 @@ function TeacherPage() {
         console.log("No category chosen.");
         return;
       }
-      if (!token) {
-        console.log("No token found.");
+      if (!accessToken) {
+        console.log("No accessToken found.");
         return;
       }
 
@@ -95,7 +93,7 @@ function TeacherPage() {
 
           }, {
             headers: {
-              'x-api-key': token
+              'x-api-key': accessToken
             }
           });
 

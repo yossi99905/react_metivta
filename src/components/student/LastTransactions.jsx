@@ -2,7 +2,7 @@ import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 
 
-function LastTransactions({ lastTransactions }) {
+const LastTransactions = ({ lastTransactions }) => {
     return (
         <div>
             <SimpleTreeView>

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import NavAdmin from './NavAdmin'
-import axios from '../../api/urls'
+import axios from '../../api/axiosInstance'
 import UserInfo from './UserInfo';
 import EditUser from './EditUser';
-import { set } from 'react-hook-form';
-
+import { useAuth } from '../../atoms/authAtom';
 
 
 function ListUsersPage() {
+    const { auth } = useAuth();
     const [users, setUsers] = useState([]);
     const [editUsers, setEditUsers] = useState();
     // const [showEditFrom, setShowEditFrom] = useState(false);
@@ -19,10 +19,10 @@ function ListUsersPage() {
 
         const getUsers = async () => {
             try {
-                const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+                const accessToken = auth.accessToken
                 const resp = await axios.get('/users', {
                     headers: {
-                        'x-api-key': token
+                        'x-api-key': accessToken
                     },
                     signal: controller.signal
                 });
@@ -57,10 +57,10 @@ function ListUsersPage() {
     const editUserOnList = async (data) => {
         console.log(data)
         try {
-            const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
             const resp = await axios.put(`/users/${editUsers._id}`, data, {
                 headers: {
-                    'x-api-key': token
+                    'x-api-key': accessToken
                 }
             });
             console.log(resp.data)
@@ -89,10 +89,10 @@ function ListUsersPage() {
         if (confirmed) {
 
             try {
-                const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+                const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
                 const resp = await axios.delete(`/users/${id}`, {
                     headers: {
-                        'x-api-key': token
+                        'x-api-key': accessToken
                     }
                 });
                 console.log(resp.data);
@@ -135,11 +135,11 @@ function ListUsersPage() {
                             users.map((user, index) => (
 
                                 <UserInfo key={index} name={user.lastName + " " + user.firstName} email={user.email}
-                                    classRoom={user.classRoom == 1? 'א' : user.classRoom == 2? 'ב' : user.classRoom == 3? 'ג' : user.classRoom == 4? 'ד' : user.classRoom == 5? 'ה' : user.classRoom == 6? 'ו' : user.classRoom == 7? 'ז' : user.classRoom == 8? 'ח':user.classRoom == 9? 'ט' : user.classRoom == 10? 'י' : 'לא משויך'}
+                                    classRoom={user.classRoom == 1 ? 'א' : user.classRoom == 2 ? 'ב' : user.classRoom == 3 ? 'ג' : user.classRoom == 4 ? 'ד' : user.classRoom == 5 ? 'ה' : user.classRoom == 6 ? 'ו' : user.classRoom == 7 ? 'ז' : user.classRoom == 8 ? 'ח' : user.classRoom == 9 ? 'ט' : user.classRoom == 10 ? 'י' : 'לא משויך'}
                                     role={
                                         user.role.length > 0 ? (user.role[0] == '4000' ? 'מנהל' : user.role[0] == '2000' ? 'מורה' : user.role[0] == "1000" ? 'תלמיד' : 'קיוסקאי'
                                         ) :
-                                            user.role == '4000' ? 'מנהל' : user.role == '2000' ? 'מורה' :user.role[0] == "1000" ? 'תלמיד' : 'קיוסקאי'}
+                                            user.role == '4000' ? 'מנהל' : user.role == '2000' ? 'מורה' : user.role[0] == "1000" ? 'תלמיד' : 'קיוסקאי'}
                                     points={user.score}
                                     onClickEdit={() => clickEdit(user)}
                                     onDeleteUser={() => deleteUser(user._id)}

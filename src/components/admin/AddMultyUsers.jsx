@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-import axios from '../../api/urls'
+import axios from '../../api/axiosInstance'
 
 
 function AddMultyUsers() {
@@ -17,16 +17,16 @@ function AddMultyUsers() {
             const sheet = workbook.Sheets[sheetName];
             const parsedData = XLSX.utils.sheet_to_json(sheet);
             setData(parsedData);
-           console.log(parsedData)
+            console.log(parsedData)
             sendUsers(parsedData);
         };
 
-        const sendUsers =  (data) => {
+        const sendUsers = (data) => {
             // try {
-            //     const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+            //     const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
             //     const resp = await axios.post("/users/createUsers", { users: userData }, {
             //         headers: {
-            //             'x-api-key': token,
+            //             'x-api-key': accessToken,
             //             'Content-Type': 'application/json'
             //         }
             //     });
@@ -43,20 +43,20 @@ function AddMultyUsers() {
             });
         }
         const newUsers = async (data) => {
-        try {
-            const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
-            const resp = await axios.post("/users", data, {
-                headers: {
-                    'x-api-key': token
-                }
-            });
-            console.log(resp.data)
+            try {
+                const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
+                const resp = await axios.post("/users", data, {
+                    headers: {
+                        'x-api-key': accessToken
+                    }
+                });
+                console.log(resp.data)
 
+            }
+            catch (err) {
+                console.log(err);
+            }
         }
-        catch (err) {
-            console.log(err);
-        }
-    }
 
 
 
@@ -93,8 +93,8 @@ function AddMultyUsers() {
                 </table>
             )}
 
-           
-        
+
+
         </div>
     );
 }

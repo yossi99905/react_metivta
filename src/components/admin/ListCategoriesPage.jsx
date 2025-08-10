@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavAdmin from './NavAdmin'
-import axios from '../../api/urls'
+import axios from '../../api/axiosInstance'
 import CategoryInfo from './CategoryInfo';
 import EditCategory from './EditCategory';
 
@@ -20,10 +20,10 @@ function ListCategoriesPage() {
 
     const getCategories = async () => {
       try {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+        const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
         const resp = await axios.get('/categories', {
           headers: {
-            'x-api-key': token
+            'x-api-key': accessToken
           },
           signal: controller.signal
         });
@@ -55,10 +55,10 @@ function ListCategoriesPage() {
   const editCategoryOnList = async (data) => {
     console.log(data)
     try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
       const resp = await axios.put(`/categories/${editCategory._id}`, data, {
         headers: {
-          'x-api-key': token
+          'x-api-key': accessToken
         }
       });
       console.log(resp.data)
@@ -78,10 +78,10 @@ function ListCategoriesPage() {
     const confirmed = window.confirm("האם אתה בטוח שברצונך למחוק קטגוריה זאת?");
     if (!confirmed) return;
     try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
       const resp = await axios.delete(`/categories/${id}`, {
         headers: {
-          'x-api-key': token
+          'x-api-key': accessToken
         }
       });
       console.log(resp.data)
@@ -96,57 +96,57 @@ function ListCategoriesPage() {
 
 
   return (
-<>
+    <>
 
-    <div className='flex  justify-end'>
-      <div className="w-lvw mx-9 my-32 max-w-[700px]">
-        <div className='space-y-2'>
-          <div className="grid grid-cols-10 text-center  h-8 font-bold    px-10 *:self-center">
+      <div className='flex  justify-end'>
+        <div className="w-lvw mx-9 my-32 max-w-[700px]">
+          <div className='space-y-2'>
+            <div className="grid grid-cols-10 text-center  h-8 font-bold    px-10 *:self-center">
 
-            <div className='col-span-2'></div>
-            <p className="col-span-4 sm:col-span-4 ">נק׳</p>
-            <p className="col-span-4 sm:col-span-4 text-end ">שם קטגוריה</p>
+              <div className='col-span-2'></div>
+              <p className="col-span-4 sm:col-span-4 ">נק׳</p>
+              <p className="col-span-4 sm:col-span-4 text-end ">שם קטגוריה</p>
+
+            </div>
+
+
+            {
+              categoriesList.length > 0 ?
+                categoriesList.map((category, index) => (
+                  <CategoryInfo key={index} name={category.name} score={category.score}
+                    onClickEditCategory={() => clickEdit(category)}
+                    onDeleteCategory={() => deleteCategory(category._id)}
+                  />
+                ))
+
+                :
+                <div className='bg-tailwind-cream p-4 rounded-2xl flex justify-between items-center'>
+                  <p>אין קטגוריות</p>
+                </div>
+
+            }
+            {
+              editCategory &&
+              <EditCategory showEditForm={editCategory} name={editCategory.name} score={editCategory.score}
+                onClickCloseBtn={() => setEditCategory(null)} onClickEditAction={editCategoryOnList}
+              />
+
+            }
+
+
+
 
           </div>
-
-
-          {
-            categoriesList.length > 0 ?
-            categoriesList.map((category, index) => (
-              <CategoryInfo key={index} name={category.name} score={category.score}
-              onClickEditCategory={() => clickEdit(category)}
-              onDeleteCategory={() => deleteCategory(category._id)}
-              />
-              ))
-              
-              :
-              <div className='bg-tailwind-cream p-4 rounded-2xl flex justify-between items-center'>
-                <p>אין קטגוריות</p>
-              </div>
-
-}
-          {
-            editCategory &&
-            <EditCategory showEditForm={editCategory} name={editCategory.name} score={editCategory.score}
-            onClickCloseBtn={() => setEditCategory(null)} onClickEditAction={editCategoryOnList}
-            />
-            
-          }
-
-
 
 
         </div>
 
 
+        <NavAdmin />
+
+
       </div>
-
-
-      <NavAdmin />
-
-
-    </div>
-          </>
+    </>
 
   )
 }

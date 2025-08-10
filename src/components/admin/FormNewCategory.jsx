@@ -1,24 +1,24 @@
 import { useForm } from "react-hook-form"
-import axios from "../../api/urls"
+import axios from "../../api/axiosInstance"
 
 
-function FormNewCategory({ onClickSubmit}) {
+function FormNewCategory({ onClickSubmit }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         console.log(data)
         newCategory(data)
-        reset({ name: '',score:''});
+        reset({ name: '', score: '' });
         //onClickSubmit() // for show success message
 
     }
 
     const newCategory = async (data) => {
         try {
-            const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1]; 
+            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
             const resp = await axios.post("/categories", data, {
                 headers: {
-                    'x-api-key': token
+                    'x-api-key': accessToken
                 }
             });
             console.log(resp.data)

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import axios from '../../api/urls';
+import axios from '../../api/axiosInstance';
 
 
 function FormNewUser({ onClickSubmit }) {
@@ -9,10 +9,10 @@ function FormNewUser({ onClickSubmit }) {
 
     const newUsers = async (data) => {
         try {
-            const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
             const resp = await axios.post("/users", data, {
                 headers: {
-                    'x-api-key': token
+                    'x-api-key': accessToken
                 }
             });
             console.log(resp.data)
@@ -37,7 +37,7 @@ function FormNewUser({ onClickSubmit }) {
 
         console.log(data)
         newUsers(data)
-        reset({firstName:'',lastName:'', email: '', classRoom: '', password: '', ID: '', dateOfBirth: '', });
+        reset({ firstName: '', lastName: '', email: '', classRoom: '', password: '', ID: '', dateOfBirth: '', });
 
         onClickSubmit()
 

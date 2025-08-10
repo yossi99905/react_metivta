@@ -2,21 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faUser, faCartShopping, faTrashCan, faHome } from '@fortawesome/free-solid-svg-icons'
 import ProductCard from '../components/store/ProductCard'
 import CartProduct from '../components/store/CartProduct'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import axios from '../api/urls'
+import { useCallback, useEffect, useState } from 'react'
+import axios from '../api/axiosInstance'
 import { NavLink } from 'react-router-dom'
-import useAuth from '../hook/useAuth'
+import { useAuth } from "../atoms/authAtom";
 import FormToPay from '../components/store/FormToPay'
 import { useNavigate } from 'react-router-dom'
 import signOut from '../auth/signOut'
 import UserInformation from '../components/UserInformation'
 import GeneralItem from '../components/store/GeneralItem'
-
-
-
-
-
-
 
 function StorePage() {
     const { auth, setAuth } = useAuth();
@@ -34,10 +28,10 @@ function StorePage() {
 
         const getUsers = async () => {
             try {
-                const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+                const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
                 const resp = await axios.get('/products', {
                     headers: {
-                        'x-api-key': token
+                        'x-api-key': accessToken
                     },
                     signal: controller.signal
                 });
@@ -181,7 +175,7 @@ function StorePage() {
                     {
                         shoppingCartList.length ?
                             shoppingCartList.map((product, index) => {
-                                return <CartProduct key={index} name={product.name} price={product.price} amount={product.amount} editAmount={editAmount} onClearOneProduct={onClearOneProduct}  />
+                                return <CartProduct key={index} name={product.name} price={product.price} amount={product.amount} editAmount={editAmount} onClearOneProduct={onClearOneProduct} />
                             })
                             :
                             <>

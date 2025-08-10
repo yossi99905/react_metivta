@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
-import axios from '../../api/urls'
+import axios from '../../api/axiosInstance'
 import StudentCard from './StudentCard'
-import useAuth from '../../hook/useAuth'
+import { useAuth } from "../../atoms/authAtom";
 
-
-
-
-function ListUsers({ onData, onSendPoints,setUsersForTransaction }) {
+function ListUsers({ onData, onSendPoints, setUsersForTransaction }) {
     const { auth } = useAuth();
 
     const [users, setUsers] = useState([]);
@@ -79,10 +76,10 @@ function ListUsers({ onData, onSendPoints,setUsersForTransaction }) {
         const getUsers = async () => {
 
             try {
-                const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+                const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
                 const resp = await axios.get(`teachers?classNum=${auth.classRoom}`, {
                     headers: {
-                        'x-api-key': token
+                        'x-api-key': accessToken
                     },
                     signal: controller.signal
                 });

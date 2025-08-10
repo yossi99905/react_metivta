@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Category from "./Category"
-import axios from "../../api/urls"
+import axios from "../../api/axiosInstance"
 import FreeScore from "./FreeScore";
 
 function ListCayegory({ onData, categoryName }) {
@@ -27,10 +27,10 @@ function ListCayegory({ onData, categoryName }) {
 
     const getUsers = async () => {
       try {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+        const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
         const resp = await axios.get('/categories', {
           headers: {
-            'x-api-key': token
+            'x-api-key': accessToken
           },
           signal: controller.signal
         });

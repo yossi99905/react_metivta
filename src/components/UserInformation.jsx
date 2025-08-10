@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import useAuth from '../hook/useAuth'
+import { useState } from 'react'
+import { useAuth } from "../atoms/authAtom";
 
 function UserInformation({ name, secretCode, active, classRoom, left, right }) {
   const { auth, setAuth } = useAuth();

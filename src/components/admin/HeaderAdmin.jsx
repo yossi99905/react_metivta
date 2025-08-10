@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import useAuth from '../../hook/useAuth'
+import { useState } from 'react'
+import { useAuth } from "../../atoms/authAtom";
 import signOut from '../../auth/signOut'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -32,7 +32,7 @@ function HeaderAdmin() {
                 <div className='left-24 absolute mt-2'>
                     <UserInformation name={auth.firstName + " " + auth.lastName} secretCode={auth.secretCode} classRoom={auth.classRoom} active={showUserInformtion} />
                 </div>
-              
+
             </div>
         </>
     )

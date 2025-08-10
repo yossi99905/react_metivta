@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import StudentScoreLead from './StudentScoreLead'
-import axios from '../../api/urls'
+import axios from '../../api/axiosInstance'
 
 
 function LeadersPage() {
     useEffect(() => {
         const getLeaders = async () => {
             try {
-                
+
                 const resp = await axios.get("/studentLeaders/top-students", {
                     // headers: {
-                    //     'x-api-key': token
+                    //     'x-api-key': accessToken
                     // }
                 });
                 console.log(resp.data)
@@ -32,17 +32,17 @@ function LeadersPage() {
     }, []);
 
     const [leaders, setLeaders] = useState([])
-    
-  return (
-    <div className=' w-[1000px] m-auto'>
-        {
-            leaders.map((leader, index) => {
-                return <StudentScoreLead key={index} score={leader.totalPoints} name={leader.studentName} />
-            })
-        }
-       
-    </div>
-  )
+
+    return (
+        <div className=' w-[1000px] m-auto'>
+            {
+                leaders.map((leader, index) => {
+                    return <StudentScoreLead key={index} score={leader.totalPoints} name={leader.studentName} />
+                })
+            }
+
+        </div>
+    )
 }
 
 export default LeadersPage

@@ -6,13 +6,13 @@ const cookies = new Cookies();
 
 
 const signOut = (navigate) => {
-   
-    // Clear the token from cookies
-    cookies.remove('token');
+
+    // Clear the accessToken from cookies
+    cookies.remove('accessToken');
     cookies.remove('isConnect');
     cookies.remove('currentLocation');
 
-   
+
 
     navigate("/", "/");
 }

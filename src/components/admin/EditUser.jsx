@@ -1,9 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import axios from '../../api/urls';
+import axios from '../../api/axiosInstance';
 
 
-function EditUser({ showEditForm = false, onClickCloseBtn, firstName,lastName,_id,role, email, classRoom, ID, dateOfBirth, score, onClickEdit}) {
+function EditUser({ showEditForm = false, onClickCloseBtn, firstName, lastName, _id, role, email, classRoom, ID, dateOfBirth, score, onClickEdit }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 

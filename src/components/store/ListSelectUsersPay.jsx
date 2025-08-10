@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import axios from '../../api/urls'
+import axios from '../../api/axiosInstance'
 
-function ListSelectUsersPay({ name , onSelectUserEmail, showSelectUserEmail}) {
+function ListSelectUsersPay({ name, onSelectUserEmail, showSelectUserEmail }) {
   const [users, setUsers] = useState([]);
   const [showSelect, setShowSelect] = useState(false);
 
@@ -11,10 +11,10 @@ function ListSelectUsersPay({ name , onSelectUserEmail, showSelectUserEmail}) {
 
     const getUsers = async () => {
       try {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+        const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
         const resp = await axios.get('/users', {
           headers: {
-            'x-api-key': token
+            'x-api-key': accessToken
           },
           signal: controller.signal
         });
@@ -41,13 +41,13 @@ function ListSelectUsersPay({ name , onSelectUserEmail, showSelectUserEmail}) {
     }
   }, [showSelectUserEmail])
 
-  
+
 
   const returnUsers = () => {
     return users.map((user, index) => {
-      if (user.firstName.includes(name) || user.lastName.includes(name) || user.email.includes(name)){
+      if (user.firstName.includes(name) || user.lastName.includes(name) || user.email.includes(name)) {
         return (
-          <div key={index} className='flex justify-between items-end border-b p-2 ' onClick={() => {onSelectUserEmail(user.email);setShowSelect(false)}}>
+          <div key={index} className='flex justify-between items-end border-b p-2 ' onClick={() => { onSelectUserEmail(user.email); setShowSelect(false) }}>
             <p>${user.score}</p>
             <div className='text-end'>
               <p>{user.firstName + " " + user.lastName}</p>
@@ -59,7 +59,7 @@ function ListSelectUsersPay({ name , onSelectUserEmail, showSelectUserEmail}) {
     })
   }
 
-  
+
 
 
 

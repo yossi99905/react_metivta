@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import axios from '../../api/urls';
+import axios from '../../api/axiosInstance';
 
 
 function NewItemForm() {
@@ -9,10 +9,10 @@ function NewItemForm() {
 
     const newItem = async (data) => {
         try {
-            const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
             const resp = await axios.post("/products", data, {
                 headers: {
-                    'x-api-key': token
+                    'x-api-key': accessToken
                 }
             });
             console.log(resp.data)
@@ -27,7 +27,7 @@ function NewItemForm() {
 
 
     const onSubmit = (data) => {
-      
+
 
         //remove inventoryCount if empty
         if (data.inventoryCount === "") {
@@ -36,9 +36,9 @@ function NewItemForm() {
 
         console.log(data)
         newItem(data)
-        reset({ name: '', price: '', barcodeNum: '', category: '', inStock: false, isPinned: false, inventoryCount: ''});
+        reset({ name: '', price: '', barcodeNum: '', category: '', inStock: false, isPinned: false, inventoryCount: '' });
 
-        
+
 
     }
 
@@ -63,8 +63,8 @@ function NewItemForm() {
                 <label htmlFor="inStock">פריט במלאי</label>
                 <input {...register("isPinned")} type="checkbox" className='rounded-2xl p-2 text-right w-full' />
                 <label htmlFor="inStock">פריט מוצמד</label>
-                <input {...register("inventoryCount", { required: false ,min:0})} type="number" placeholder="הזן כמות" className='rounded-2xl p-2 text-right w-full' />
-        
+                <input {...register("inventoryCount", { required: false, min: 0 })} type="number" placeholder="הזן כמות" className='rounded-2xl p-2 text-right w-full' />
+
                 <button type='submit' className=' rounded-2xl p-2 bg-tailwind-green text-white '>שלח</button>
 
             </form>

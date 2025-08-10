@@ -1,35 +1,22 @@
-import { useLocation, Navigate, Outlet,  } from 'react-router-dom'
-import useAuth from '../hook/useAuth'
-
-
-
-
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../atoms/authAtom";
 
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAuth();
     const location = useLocation();
 
-    document.cookie = `currentLocation=${location.pathname}`;
-    
-    return (
+    if (!auth?.role?.length) {
+        localStorage.setItem("lastVisited", location.pathname);
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
 
+    const hasAccess = auth.role.some(role => allowedRoles.includes(role));
 
-        auth?.role?.find(role => allowedRoles.includes(role))
-            ? <Outlet />
-            : auth?.role
-                ? <Navigate to='/' state={{ from: location }} replace />
-                : <Navigate to='/login' state={{ from: location }} replace />
+    if (hasAccess) {
+        return <Outlet />;
+    } else {
+        return <Navigate to="/" state={{ from: location }} replace />;
+    }
+};
 
-        // auth?.role?.includes("1000") ? <Navigate to='/student' state={{ from: location }} replace /> :
-        //     auth?.role?.includes("2000") ? <Navigate to='/teacher' state={{ from: location }} replace /> :
-        //         auth?.role?.includes("3000") ? <Navigate to='/admin' state={{ from: location }} replace /> :
-        //             auth?.user ? <Navigate to='/' state={{ from: location }} replace /> :
-        //                 <Navigate to='/login' state={{ from: location }} replace />
-
-      
-        
-
-    )
-}
-
-export default RequireAuth
+export default RequireAuth;

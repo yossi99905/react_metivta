@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
-import axios from "../../api/urls"
+import axios from "../../api/axiosInstance"
 import SuccesMessage from '../SuccesMessage'
 import ListSelectUsersPay from './ListSelectUsersPay';
 
@@ -17,10 +17,10 @@ function FormToPay({ showFormToPay = false, numPay, closeFormToPay, clearCart })
     const onSubmit = async (data) => {
         console.log(data)
         try {
-            const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
             const resp = await axios.post('/payment', data, {
                 headers: {
-                    'x-api-key': token
+                    'x-api-key': accessToken
                 }
             });
             console.log(resp.data);
