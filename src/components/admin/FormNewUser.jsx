@@ -1,77 +1,82 @@
-import { useForm } from 'react-hook-form'
-import axios from '../../api/axiosInstance';
+import { useForm } from 'react-hook-form';
+import { useCreateUser } from '../../hook/useUsers';
 
+const fields = [
+  { name: 'firstName', type: 'text', placeholder: 'הזן שם פרטי', rules: { required: true, minLength: 2 } },
+  { name: 'lastName', type: 'text', placeholder: 'הזן שם משפחה', rules: { required: true, minLength: 2 } },
+  { name: 'email', type: 'email', placeholder: 'הזן איימל', rules: { required: true, minLength: 4 } },
+  { name: 'password', type: 'password', placeholder: 'הזן סיסמה', rules: { required: true, minLength: 3 } },
+  { name: 'classRoom', type: 'text', placeholder: 'הזן כיתה', rules: { required: true, min: 0 } },
+  { name: 'ID', type: 'text', placeholder: 'הזן תעודת זהות', rules: { required: true, minLength: 2 } },
+  { name: 'dateOfBirth', type: 'text', placeholder: 'הזן יום הולדת', rules: { required: false } },
+];
 
-function FormNewUser({ onClickSubmit }) {
+const FormNewUser = ({ onClickSubmit }) => {
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const createUserMutation = useCreateUser();
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const onSubmit = (formData) => {
+    const data = {
+      ...formData,
+      role: [formData.role],
+    };
 
-
-    const newUsers = async (data) => {
-        try {
-            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-            const resp = await axios.post("/users", data, {
-                headers: {
-                    'x-api-key': accessToken
-                }
-            });
-            console.log(resp.data)
-
-        }
-        catch (err) {
-            console.log(err);
-        }
+    if (!formData.dateOfBirth) {
+      delete data.dateOfBirth;
     }
 
+    createUserMutation.mutate(data, {
+      onSuccess: () => {
+        reset();
+        onClickSubmit();
+      },
+    });
+  };
 
+  return (
+    <div className="bg-tailwind-cream flex justify-center items-center max-w-[500px] m-auto rounded-lg shadow-md">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-8 my-10 mx-4 w-full">
+        
+        {fields.map(({ name, type, placeholder, rules }) => (
+          <div key={name} className="text-center">
+            <input
+              {...register(name, rules)}
+              type={type}
+              placeholder={placeholder}
+              className="rounded-2xl p-2 text-right w-full"
+            />
+            {errors[name] && (
+              <span className="text-center text-sm text-red-600">
+                {name === 'password' && 'סיסמה חייבת להיות באורך של 3 תווים לפחות'}
+              </span>
+            )}
+          </div>
+        ))}
 
+        {/* Role select */}
+        <select {...register("role", { required: true })} className="rounded-2xl p-2 text-right w-full">
+          <option value="1000">תלמיד</option>
+          <option value="2000">מורה</option>
+        </select>
 
-    const onSubmit = (data) => {
-        //check role to array
-        data["role"] = [data["role"]];
+        {/* Submit button */}
+        <button
+          type="submit"
+          disabled={createUserMutation.isLoading}
+          className="rounded-2xl p-2 bg-tailwind-green text-white"
+        >
+          {createUserMutation.isLoading ? 'שולח...' : 'שלח'}
+        </button>
 
-        //remove dateOfBirth if empty
-        if (data.dateOfBirth === "") {
-            delete data.dateOfBirth;
-        }
+        {/* Error message */}
+        {createUserMutation.isError && (
+          <p className="text-red-600 text-center">
+            שגיאה: {createUserMutation.error?.message || 'משהו השתבש'}
+          </p>
+        )}
+      </form>
+    </div>
+  );
+};
 
-        console.log(data)
-        newUsers(data)
-        reset({ firstName: '', lastName: '', email: '', classRoom: '', password: '', ID: '', dateOfBirth: '', });
-
-        onClickSubmit()
-
-    }
-
-    return (
-        <div className='bg-tailwind-cream flex justify-center items-center max-w-[500px] m-auto rounded-lg shadow-md'>
-
-
-
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col  space-y-8 my-10 mx-4 '>
-                <input {...register("firstName", { required: true, minLength: 2 })} type="text" placeholder="הזן שם פרטי" className='rounded-2xl p-2 text-right w-full' />
-                <input {...register("lastName", { required: true, minLength: 2 })} type="text" placeholder="הזן שם משפחה" className='rounded-2xl p-2 text-right w-full' />
-                <input {...register("email", { required: true, minLength: 4 })} type="text" placeholder="הזן איימל" className='rounded-2xl p-2 text-right w-full' />
-                <div className='text-center'>
-                    <input {...register("password", { required: true, minLength: 3 })} type="password" placeholder="הזן סיסמה" className='rounded-2xl p-2 text-right w-full' />
-                    {errors.password && <span className='text-center text-sm text-red-600 '>סיסמה חייבת להיות באורך של 3 תווים לפחות</span>}
-                </div>
-                <select {...register("role", { required: true })} className='rounded-2xl p-2 text-right w-full'>
-                    <option value={["1000"]}>תלמיד</option>
-                    <option value={["2000"]}>מורה</option>
-                </select>
-                <input {...register("classRoom", { required: true, min: 0 })} type="text" placeholder="הזן כיתה" className='rounded-2xl p-2 text-right w-full' />
-                <input {...register("ID", { required: true, minLength: 2 })} type="text" placeholder="הזן תעודת זהות" className='rounded-2xl p-2 text-right w-full' />
-                <input {...register("dateOfBirth", { required: false, minLength: 2, })} type="text" placeholder="הזן יום הולדת" className='rounded-2xl p-2 text-right w-full' />
-
-
-
-                <button type='submit' className=' rounded-2xl p-2 bg-tailwind-green text-white '>שלח</button>
-
-            </form>
-
-        </div>
-    )
-}
-
-export default FormNewUser
+export default FormNewUser;

@@ -1,104 +1,56 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import NavAdmin from './NavAdmin'
-import axios from '../../api/axiosInstance'
 import CategoryInfo from './CategoryInfo';
 import EditCategory from './EditCategory';
-
-import HeaderAdmin from './HeaderAdmin';
+import { useCategories, useDeleteCategory, useUpdateCategory } from '../../hook/useCategory';
+import Modal from '../Modal';
 
 
 
 function ListCategoriesPage() {
 
-  const [categoriesList, setCategoriesList] = useState([]);
-  const [editCategory, setEditCategory] = useState();
+  const { data: categories = [] } = useCategories();
+  const deleteCategory = useDeleteCategory();
+  const updateCategory = useUpdateCategory();
+  const [editCategory, setEditCategory] = useState(null);
 
-  // get all categories
-  useEffect(() => {
-    let isMounted = true
-    const controller = new AbortController()
+  const onCloseModal = () => setEditCategory(null);
 
-    const getCategories = async () => {
-      try {
-        const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-        const resp = await axios.get('/categories', {
-          headers: {
-            'x-api-key': accessToken
-          },
-          signal: controller.signal
-        });
-        console.log(resp.data);
-        if (isMounted) {
-          setCategoriesList(resp.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getCategories();
-    return () => {
-      isMounted = false
-      controller.abort()
+  const onDeleteCategory = (id) => {
+    if (window.confirm("האם אתה בטוח שברצונך למחוק את הקטגוריה?")) {
+      deleteCategory.mutateAsync(id.toString());
     }
+  };
 
-  }
-    , [])
+  const onSubmitEdit = async (data) => {
+    if (!editCategory) return;
+    await updateCategory.mutateAsync({ id: editCategory._id.toString(), category: data });
+    onCloseModal();
+  };
 
-  // click edit category
-  const clickEdit = (category) => {
-    setEditCategory(category);
-
-  }
-
-  // edit category to state and server
-  const editCategoryOnList = async (data) => {
-    console.log(data)
-    try {
-      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-      const resp = await axios.put(`/categories/${editCategory._id}`, data, {
-        headers: {
-          'x-api-key': accessToken
-        }
-      });
-      console.log(resp.data)
-      // update category in categories state
-      setCategoriesList(categoriesList.map(category => category._id === editCategory._id ? { ...data, _id: editCategory._id } : category));
-      setEditCategory(null);
-
-
+  const renderCategories = () => {
+    if (categories.length === 0) {
+      return (
+        <div className="bg-tailwind-cream p-4 rounded-2xl flex justify-between items-center">
+          <p>אין קטגוריות</p>
+        </div>
+      );
     }
-    catch (err) {
-      console.log(err);
-    }
-  }
-
-  // delete category
-  const deleteCategory = async (id) => {
-    const confirmed = window.confirm("האם אתה בטוח שברצונך למחוק קטגוריה זאת?");
-    if (!confirmed) return;
-    try {
-      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-      const resp = await axios.delete(`/categories/${id}`, {
-        headers: {
-          'x-api-key': accessToken
-        }
-      });
-      console.log(resp.data)
-      // update category in categories state
-      setCategoriesList(categoriesList.filter(category => category._id !== id));
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
-
-
+    return categories.map((category, index) => (
+      <CategoryInfo
+        key={index}
+        name={category.name}
+        score={category.score}
+        onClickEditCategory={() => setEditCategory(category)}
+        onDeleteCategory={() => onDeleteCategory(category._id)}
+      />
+    ));
+  };
 
   return (
     <>
 
-      <div className='flex  justify-end'>
+      <div className='flex justify-end'>
         <div className="w-lvw mx-9 my-32 max-w-[700px]">
           <div className='space-y-2'>
             <div className="grid grid-cols-10 text-center  h-8 font-bold    px-10 *:self-center">
@@ -108,46 +60,23 @@ function ListCategoriesPage() {
               <p className="col-span-4 sm:col-span-4 text-end ">שם קטגוריה</p>
 
             </div>
-
-
-            {
-              categoriesList.length > 0 ?
-                categoriesList.map((category, index) => (
-                  <CategoryInfo key={index} name={category.name} score={category.score}
-                    onClickEditCategory={() => clickEdit(category)}
-                    onDeleteCategory={() => deleteCategory(category._id)}
-                  />
-                ))
-
-                :
-                <div className='bg-tailwind-cream p-4 rounded-2xl flex justify-between items-center'>
-                  <p>אין קטגוריות</p>
-                </div>
-
-            }
-            {
-              editCategory &&
-              <EditCategory showEditForm={editCategory} name={editCategory.name} score={editCategory.score}
-                onClickCloseBtn={() => setEditCategory(null)} onClickEditAction={editCategoryOnList}
-              />
-
-            }
-
-
-
-
+            {renderCategories()}
           </div>
-
-
         </div>
-
-
         <NavAdmin />
-
-
       </div>
+      <Modal isOpen={!!editCategory} onClose={onCloseModal}>
+        {editCategory && (
+          <EditCategory
+            name={editCategory.name || ''}
+            score={editCategory.score || 0}
+            _id={editCategory._id || ''}
+            onSubmit={onSubmitEdit}
+            key={editCategory._id || ''}
+          />
+        )}
+      </Modal>
     </>
-
   )
 }
 

@@ -9,9 +9,9 @@ import { ROLES } from "../constants/roles";
 export default function StoreRoutes() {
     return (
         <>
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Manager]} />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.STORE]} />}>
                 <Route path="store" element={<StorePage />} />
-                <Route path="store/storemanagement" element={<StoreManagementPage />} />
+                <Route path="store/storeManagement" element={<StoreManagementPage />} />
                 <Route path="store/newItem" element={<NewItemPage />} />
                 <Route path="store/ListItems" element={<ListItemsPage />} />
             </Route>

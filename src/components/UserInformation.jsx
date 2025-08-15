@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { useAuth } from "../atoms/authAtom";
 
 function UserInformation({ name, secretCode, active, classRoom, left, right }) {
-  const { auth, setAuth } = useAuth();
   const [showSecretCode, setShowSecretCode] = useState(false)
-  const leeterAr = ['מנהל', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י']
+  const classRooms = ['מנהל', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י']
 
   return (
     <div className={`${!active && 'hidden '}  h-96 w-80  absolute left-${left} right-${right} top-18 *:text-whit text-center bg-white`}>
@@ -13,7 +11,7 @@ function UserInformation({ name, secretCode, active, classRoom, left, right }) {
         <div className='bg-tailwind-cream rounded-full size-16 flex items-center justify-center text-3xl z-10'>{name.charAt(0)}</div>
       </div>
       <div className='space-y-12  flex flex-col pt-14 items-center bg-slate-400 z-0 h-[304px] rounded-b-lg'>
-        <h2 className='text-white'>{name}, כיתה: {leeterAr[classRoom]}</h2>
+        <h2 className='text-white'>{name}, כיתה: {classRooms[classRoom]}</h2>
         <div className='space-y-4 flex flex-col items-center'>
           <h3 className='text-white'>הקוד הסודי</h3>
           <button onClick={() => setShowSecretCode(perv => !perv)} className='text-white text-[12px]'>הקש כדי לצפות</button>

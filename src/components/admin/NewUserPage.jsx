@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import NavAdmin from './NavAdmin'
 import SuccesMessage from '../SuccesMessage'
 import FormNewUser from './FormNewUser'

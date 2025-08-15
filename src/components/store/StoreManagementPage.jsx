@@ -1,7 +1,6 @@
-import React from 'react'
 import NavStore from './NavStore'
 
-function storeManagementPage() {
+const storeManagementPage =() => {
   return (
     <div className='flex h-lvh justify-end'>
             <div className='w-lvw '>

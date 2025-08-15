@@ -1,9 +1,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGauge, faUser, faUsers,faUserPlus ,  faFileCirclePlus, faFolderClosed } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
+import { faGauge, faUsers, faUserPlus, faFileCirclePlus, faFolderClosed } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
-import CircleDesign from '../CircleDesign'
 
 
 function NavAdmin() {
@@ -20,14 +18,18 @@ function NavAdmin() {
         <div className='*:text-2xl md:hidden space-y-4'>
           <div>
 
-            <NavLink to={'/admin/dashboard'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
-              <FontAwesomeIcon icon={faGauge} />
-            </li></NavLink>
+            <NavLink to={'/admin/dashboard'}>
+              <li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
+                <FontAwesomeIcon icon={faGauge} />
+              </li>
+            </NavLink>
           </div>
           <div>
-            <NavLink to={'/admin/newUser'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
-              <FontAwesomeIcon icon={faUserPlus} />
-            </li></NavLink>
+            <NavLink to={'/admin/newUser'}>
+              <li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
+                <FontAwesomeIcon icon={faUserPlus} />
+              </li>
+            </NavLink>
           </div>
           <div>
 
@@ -37,15 +39,19 @@ function NavAdmin() {
           </div>
           <div>
 
-            <NavLink to={'/admin/newCategory'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
-              <FontAwesomeIcon icon={faFileCirclePlus} />
-            </li></NavLink>
+            <NavLink to={'/admin/newCategory'}>
+              <li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
+                <FontAwesomeIcon icon={faFileCirclePlus} />
+              </li>
+            </NavLink>
           </div>
           <div>
 
-            <NavLink to={'/admin/listCategories'}><li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
-              <FontAwesomeIcon icon={faFolderClosed} />
-            </li></NavLink>
+            <NavLink to={'/admin/listCategories'}>
+              <li className=' h-10 hover:bg-tailwind-green-bright hover:text-black items-center flex justify-center'>
+                <FontAwesomeIcon icon={faFolderClosed} />
+              </li>
+            </NavLink>
           </div>
         </div>
 
