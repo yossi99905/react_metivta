@@ -1,29 +1,20 @@
 import { useForm } from "react-hook-form"
-import axios from "../../api/axiosInstance"
+import { useCreateCategory } from "../../hook/useCategories";
 
 
-function FormNewCategory({ onClickSubmit }) {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+function FormNewCategory() {
+    const { register, handleSubmit, reset } = useForm();
+    const createCategory = useCreateCategory();
+
 
     const onSubmit = (data) => {
-        console.log(data)
-        newCategory(data)
-        reset({ name: '', score: '' });
-        //onClickSubmit() // for show success message
+        createCategory.mutate(data, {
+            onSuccess: () => {
+                reset();
+            },
+        });
 
     }
-
-    const newCategory = async (data) => {
-        try {
-            const resp = await axios.post("/categories", data);
-            console.log(resp.data)
-
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
 
     return (
         <div className='bg-tailwind-cream flex justify-center items-center max-w-[500px] m-auto rounded-lg shadow-md'>
@@ -32,7 +23,6 @@ function FormNewCategory({ onClickSubmit }) {
                 <input {...register("score", { required: true, minLength: 1 })} type="nunber" placeholder="הזן ניקוד" className='rounded-2xl p-2 text-right w-full' />
                 <button type='submit' className=' rounded-2xl p-2 bg-tailwind-green text-white '>שלח</button>
             </form>
-
         </div>
     )
 }

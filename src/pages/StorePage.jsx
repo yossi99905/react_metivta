@@ -155,7 +155,7 @@ function StorePage() {
                         <FontAwesomeIcon icon={faRightFromBracket} className='text-tailwind-green text-xl' />
                     </div>
                     <div className='bg-tailwind-cream rounded-lg h-10 w-10  text-sm text-center'>
-                        <NavLink to={'/store/storeanagement'}>ניהול חנות</NavLink>
+                        <NavLink to={'/store/storeManagement'}>ניהול חנות</NavLink>
                     </div>
                 </div>
 

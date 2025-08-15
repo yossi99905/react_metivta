@@ -2,7 +2,7 @@ import { useState } from 'react'
 import NavAdmin from './NavAdmin'
 import CategoryInfo from './CategoryInfo';
 import EditCategory from './EditCategory';
-import { useCategories, useDeleteCategory, useUpdateCategory } from '../../hook/useCategory';
+import { useCategories, useDeleteCategory, useUpdateCategory } from '../../hook/useCategories';
 import Modal from '../Modal';
 
 

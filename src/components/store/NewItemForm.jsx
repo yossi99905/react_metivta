@@ -1,52 +1,23 @@
 import { useForm } from 'react-hook-form'
-import axios from '../../api/axiosInstance';
+import { useCreateProduct } from '../../hook/useProducts';
 
 
 function NewItemForm() {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
-
-    const newItem = async (data) => {
-        try {
-            const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-            const resp = await axios.post("/products", data, {
-                headers: {
-                    'x-api-key': accessToken
-                }
-            });
-            console.log(resp.data)
-
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
-
-
+    const createProduct = useCreateProduct();
 
     const onSubmit = (data) => {
-
-
-        //remove inventoryCount if empty
-        if (data.inventoryCount === "") {
-            delete data.inventoryCount;
-        }
-
-        console.log(data)
-        newItem(data)
-        reset({ name: '', price: '', barcodeNum: '', category: '', inStock: false, isPinned: false, inventoryCount: '' });
-
-
+        createProduct.mutate(data, {
+            onSuccess: () => {
+                reset();
+            },
+        });
 
     }
 
     return (
         <div className='bg-tailwind-cream flex justify-center items-center max-w-[500px] m-auto rounded-lg shadow-md'>
-
-
-
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col  space-y-8 my-10 mx-4 '>
                 <input {...register("name", { required: true, minLength: 2 })} type="text" placeholder="הזן שם מוצר" className='rounded-2xl p-2 text-right w-full' />
                 <input {...register("price", { required: true })} type="number" placeholder="הזן מחיר" className='rounded-2xl p-2 text-right w-full' />
@@ -66,9 +37,7 @@ function NewItemForm() {
                 <input {...register("inventoryCount", { required: false, min: 0 })} type="number" placeholder="הזן כמות" className='rounded-2xl p-2 text-right w-full' />
 
                 <button type='submit' className=' rounded-2xl p-2 bg-tailwind-green text-white '>שלח</button>
-
             </form>
-
         </div>
     )
 }

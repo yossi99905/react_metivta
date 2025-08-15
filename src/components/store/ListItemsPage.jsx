@@ -1,100 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import axios from '../../api/axiosInstance'
+import { useState } from 'react'
 import NavStore from './NavStore';
 import ItemInfo from './ItemInfo';
 import EditItem from './EditItem';
+import Modal from '../Modal';
+import { useDeleteProduct, useProducts, useUpdateProduct } from '../../hook/useProducts';
 
 function ListItemsPage() {
 
-  const [itemsList, setItemsList] = useState([]);
-  const [editItems, setEditItems] = useState();
+  const { data: products = [] } = useProducts();
+  const deleteProduct = useDeleteProduct();
+  const updateProduct = useUpdateProduct();
+  const [editProduct, setEditProduct] = useState(null);
 
-  // get all categories
-  useEffect(() => {
-    let isMounted = true
-    const controller = new AbortController()
+  const onCloseModal = () => setEditProduct(null);
 
-    const getCategories = async () => {
-      try {
-        const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-        const resp = await axios.get('/products', {
-          headers: {
-            'x-api-key': accessToken
-          },
-          signal: controller.signal
-        });
-        console.log(resp.data);
-        if (isMounted) {
-          setItemsList(resp.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getCategories();
-    return () => {
-      isMounted = false
-      controller.abort()
+  const onDeleteProduct = (id) => {
+    if (window.confirm("האם אתה בטוח שברצונך למחוק מוצר זה?")) {
+      deleteProduct.mutateAsync(id.toString());
     }
+  };
 
-  }
-    , [])
+  const onSubmitEdit = async (data) => {
+    if (!editProduct) return;
+    await updateProduct.mutateAsync({ id: editProduct._id.toString(), product: data });
+    onCloseModal();
+  };
 
-  // click edit item
-  const clickEdit = (item) => {
-    setEditItems(item);
-
-  }
-
-  // edit item to state and server
-  const editItemOnList = async (data) => {
-    console.log(data)
-    try {
-      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-      const resp = await axios.put(`/products/${editItems._id}`, data, {
-        headers: {
-          'x-api-key': accessToken
-        }
-      });
-      console.log(resp.data);
-
-      // update the item in the list
-      setItemsList(prevList => {
-        const index = prevList.findIndex(element => element._id === editItems._id);
-        const updatedList = [...prevList];
-        updatedList[index] = { ...updatedList[index], ...data };
-        return updatedList;
-      });
-      setEditItems(null);
-    } catch (err) {
-      console.log(err);
+  const renderCategories = () => {
+    if (products.length === 0) {
+      return (
+        <div className="bg-tailwind-cream p-4 rounded-2xl flex justify-between items-center">
+          <p>אין קטגוריות</p>
+        </div>
+      );
     }
-  }
-
-  // delete item
-  const deleteCategory = async (id) => {
-    const confirmed = window.confirm("האם אתה בטוח שברצונך למחוק מוצר  זה?");
-    if (!confirmed) {
-      return;
-    }
-    try {
-      const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-      const resp = await axios.delete(`/products/${id}`, {
-        headers: {
-          'x-api-key': accessToken
-        }
-      });
-      console.log(resp.data)
-      // update category in categories state
-      setItemsList(itemsList.filter(item => item._id !== id));
-
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
-
+    return products.map((item, index) => (
+      <ItemInfo key={index} name={item.name} price={item.price} category={item.category} inStock={item.inStock ? "כן" : "לא"} isPinned={item.isPinned ? "כן" : "לא"} inventoryCount={item.inventoryCount ? item.inventoryCount : "-"} barcodeNum={item.barcodeNum}
+        onClickEditItem={() => setEditProduct(item)}
+        onDeleteItem={() => onDeleteProduct(item._id)}
+      />
+    ));
+  };
 
   return (
     <>
@@ -115,44 +61,28 @@ function ListItemsPage() {
               <p className="col-span-4 sm:col-span-2">שם מוצר</p>
 
             </div>
-
-
-            {
-              itemsList.length > 0 ?
-                itemsList.map((item, index) => (
-                  <ItemInfo key={index} name={item.name} price={item.price} category={item.category} inStock={item.inStock ? "כן" : "לא"} isPinned={item.isPinned ? "כן" : "לא"} inventoryCount={item.inventoryCount ? item.inventoryCount : "-"} barcodeNum={item.barcodeNum}
-                    onClickEditItem={() => clickEdit(item)}
-                    onDeleteItem={() => deleteCategory(item._id)}
-                  />
-                ))
-
-                :
-                <div className='bg-tailwind-cream p-4 rounded-2xl flex justify-between items-center'>
-                  <p>אין קטגוריות</p>
-                </div>
-
-            }
-            {
-              editItems &&
-              <EditItem showEditForm={editItems} name={editItems.name} price={editItems.price} category={editItems.category} inStock={editItems.inStock} isPinned={editItems.isPinned} inventoryCount={editItems.inventoryCount} barcodeNum={editItems.barcodeNum} image={editItems.image}
-                onClickCloseBtn={() => setEditItems(null)} onClickEditAction={editItemOnList}
-              />
-
-            }
-
-
-
-
+            {renderCategories()}
           </div>
-
-
         </div>
-
-
         <NavStore />
-
-
       </div>
+      <Modal isOpen={!!editProduct} onClose={onCloseModal}>
+        {editProduct && (
+          <EditItem
+            showEditForm={editProduct}
+            name={editProduct.name}
+            price={editProduct.price}
+            category={editProduct.category}
+            inStock={editProduct.inStock}
+            isPinned={editProduct.isPinned}
+            inventoryCount={editProduct.inventoryCount}
+            barcodeNum={editProduct.barcodeNum}
+            image={editProduct.image}
+            onSubmit={onSubmitEdit}
+            key={editProduct._id}
+          />
+        )}
+      </Modal>
     </>
 
   )
