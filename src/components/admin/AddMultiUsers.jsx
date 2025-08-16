@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as XLSX from "xlsx";
 import axios from '../../api/axiosInstance'
 
 
-function AddMultyUsers() {
+function AddMultiUsers() {
 
     const [data, setData] = useState([]);
 
@@ -99,4 +99,4 @@ function AddMultyUsers() {
     );
 }
 
-export default AddMultyUsers;
+export default AddMultiUsers;

@@ -5,7 +5,7 @@ import ListUsers from '../components/teacher/ListUsers'
 import HeaderForPage from '../components/HeaderForPage'
 import { useAuth } from "../atoms/authAtom";
 import ListCategory from '../components/teacher/ListCategory'
-import SuccessMessage from '../components/SuccesMessage'
+import SuccessMessage from '../components/SuccessMessage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import UserInformation from '../components/UserInformation'
@@ -141,7 +141,7 @@ function TeacherPage() {
 
       </div>
       <div className='lg:w-[710px] md:w-[500px] sm:w-[410px] w-full bottom-4 fixed sm:bottom-28 sm:left-24'>
-        <button onClick={handelSubmit} disabled={categoryChoose == 0 } className={`${(categoryChoose == 0 ) && "bg-tailwind-green-bright"}  rounded-3xl bg-tailwind-green text-white text-3xl sm:w-36 sm:h-28 w-full h-8 `}>שליחה</button>
+        <button onClick={handelSubmit} disabled={categoryChoose == 0} className={`${(categoryChoose == 0) && "bg-tailwind-green-bright"}  rounded-3xl bg-tailwind-green text-white text-3xl sm:w-36 sm:h-28 w-full h-8 `}>שליחה</button>
       </div>
     </div>
   )

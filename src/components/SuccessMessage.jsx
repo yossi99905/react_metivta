@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
-function SuccesMessage({ name, onClickBtn, show }) {
+function SuccessMessage({ name, onClickBtn, show }) {
 
   useEffect(() => {
     if (show) {
@@ -21,4 +21,4 @@ function SuccesMessage({ name, onClickBtn, show }) {
   )
 }
 
-export default SuccesMessage
+export default SuccessMessage

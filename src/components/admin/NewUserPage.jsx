@@ -1,29 +1,23 @@
 import { useState } from 'react'
 import NavAdmin from './NavAdmin'
-import SuccesMessage from '../SuccesMessage'
+import SuccessMessage from '../SuccessMessage'
 import FormNewUser from './FormNewUser'
-import AddMultyUsers from './AddMultyUsers'
+import AddMultiUsers from './AddMultiUsers'
 
 function NewUserPage() {
-    const [bollSucces, setbollSucces] = useState(false)
+    const [bollSuccess, setbollSuccess] = useState(false)
     return (
         <div className='flex h-lvh justify-end'>
             <div className="col-span-3 gap-4 my-32 w-lvw mx-9">
                 <div className='w-full h-full'>
-                    <SuccesMessage name={"השם נשמר בהצלחה"} onClickBtn={() => setbollSucces(!bollSucces)} show={bollSucces} />
-                    <FormNewUser onClickSubmit={() => setbollSucces(!bollSucces)} />
+                    <SuccessMessage name={"השם נשמר בהצלחה"} onClickBtn={() => setbollSuccess(!bollSuccess)} show={bollSuccess} />
+                    <FormNewUser onClickSubmit={() => setbollSuccess(!bollSuccess)} />
                 </div>
                 <div className='m-auto max-w-[500px]'>
-
-                    <AddMultyUsers />
+                    <AddMultiUsers />
                 </div>
             </div>
-
-
-
             <NavAdmin />
-
-
         </div>
     )
 }
