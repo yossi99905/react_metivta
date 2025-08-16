@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import api, { setAuthToken } from "../api/axiosInstance";
 import { useState } from "react";
 import { useAuth } from "../atoms/authAtom";
+import { login } from "../api/loginApi";
 
 function FormLogin() {
   const { setAuth } = useAuth();
@@ -23,7 +24,7 @@ function FormLogin() {
 
   const apiLogin = async (data) => {
     try {
-      const resp = await api.post("/users/login", data, { withCredentials: true });
+      const resp = await login(data);
 
       // אם אין accessToken או שיש שגיאה מצד השרת
       if (!resp.data?.accessToken) {

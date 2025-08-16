@@ -1,47 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import axios from '../../api/axiosInstance'
+import { useEffect, useState } from 'react'
+import { useUsers } from '../../hook/useUsers';
 
 function ListSelectUsersPay({ name, onSelectUserEmail, showSelectUserEmail }) {
-  const [users, setUsers] = useState([]);
+  const { data: users = [] } = useUsers();
   const [showSelect, setShowSelect] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true
-    const controller = new AbortController()
-
-    const getUsers = async () => {
-      try {
-        const accessToken = document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-        const resp = await axios.get('/users', {
-          headers: {
-            'x-api-key': accessToken
-          },
-          signal: controller.signal
-        });
-        console.log(resp.data);
-        if (isMounted) {
-          setUsers(resp.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getUsers();
-    return () => {
-      isMounted = false
-      controller.abort()
-    }
-
-  }, [])
 
   useEffect(() => {
     if (showSelectUserEmail) {
       setShowSelect(true)
     }
   }, [showSelectUserEmail])
-
-
 
   const returnUsers = () => {
     return users.map((user, index) => {
